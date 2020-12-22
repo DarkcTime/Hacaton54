@@ -50,7 +50,7 @@ namespace Hacaton54
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Student}/{action=ListStudents}/{id?}");
             });
         }
     }

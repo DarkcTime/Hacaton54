@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hacaton54</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="bg-auth">
+
+    <!-- Header for all pages -->
+    <header>
+        <!-- Image and text -->
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="~/resource/icons/ks54.svg" class="d-inline-block align-top" alt="" loading="lazy">
+            </a>
+            <div class="navbar-title">
+                Учётные документы КС 54
+            </div>
+        </nav>
+    </header>
+
+    <!-- Body -->
+    <div>
+        @RenderBody()
+    </div>
+
+    <!-- Footer for all pages -->
+    <footer id="footer-standart">
+        <div class="container">
+            <div class="row">
+                Техническая поддержка:
+            </div>
+            <div class="row">
+                <img class="icon-text" src="~/resource/icons/footer/phone.ico" /> 8(977)536-26-46
+            </div>
+            <div class="row">
+                <img class="icon-text" src="~/resource/icons/footer/email.ico" /> hacaton54@yandex.ru
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

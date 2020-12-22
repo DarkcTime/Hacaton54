@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Hacaton54</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body >
+    <!-- Header for all pages -->
+    <header>
+        <!-- Image and text -->
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="~/resource/icons/ks54.svg" class="d-inline-block align-top" alt="" loading="lazy">
+            </a>
+            <div>
+                Профиль пользователя
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="row">           
+            <div class="col-3 focus-block-white border-radius-standart" asp-controller="Student">
+                <h6>Студенты</h6>
+                <div class="row">
+                    <a asp-action="ListStudents">
+                        <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Список студентов
+                    </a>                    
+                </div>
+                <div class="row">
+                    <a asp-action="AddStudent">
+                        <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Добавление студента
+                    </a>
+                </div>
+                <h6>Дорожная карта</h6>
+                <div class="row">
+                    <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Формирование дорожной карты
+                </div>
+                <div class="row">
+                    <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Добавление групп
+                </div>
+                <h6>Ведомости</h6>
+                <div class="row">
+                    <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Документация по ведомости
+                </div>
+
+            </div>
+          
+            <div class="col-7 container">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer for all pages -->
+    <footer id="footer-standart">
+        <div class="container">
+            <div class="row">
+                Техническая поддержка:
+            </div>
+            <div class="row">
+                <img class="icon-text" src="~/resource/icons/footer/phone.ico" /> 8(977)536-26-46
+            </div>
+            <div class="row">
+                <img class="icon-text" src="~/resource/icons/footer/email.ico" /> hacaton54@yandex.ru
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
