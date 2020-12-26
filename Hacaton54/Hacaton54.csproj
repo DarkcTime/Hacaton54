@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="BackEnd\Excel\" />
     <Folder Include="Models\DataModel\" />
   </ItemGroup>
 
