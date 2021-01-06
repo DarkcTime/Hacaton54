@@ -9,8 +9,9 @@ namespace Hacaton54.Models.Repositories
 {
     public class ModelRepository
     {
+        /*
         protected static ks54AISContext context = new ks54AISContext(); 
-
+     
         protected bool SaveChanges()
         {
             try
@@ -23,5 +24,6 @@ namespace Hacaton54.Models.Repositories
                 return false; 
             }                   
         }
+        */
     }
 }
