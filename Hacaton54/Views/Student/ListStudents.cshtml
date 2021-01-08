@@ -1,40 +1,13 @@
-﻿<style>
-    #customers {
-        font-family: Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-        #customers td, #customers th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        #customers tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        #customers tr:hover {
-            background-color: #ddd;
-        }
-
-        #customers th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: #4CAF50;
-            color: white;
-        }
-</style>
-
+﻿
+<!-- Top menu -->
 <div class="row">
     <div class="col-5">
         @Html.ActionLink("Параметры фильтрации", "FilteringStudents")
     </div>
     <div class="col">
         <button type="submit" class="btn-icon">
-            <img src="~/resource/icons/left menu/student.png" width="30" height="30"/> 
-        </button>    
+            <img src="~/resource/icons/left menu/student.png" width="30" height="30" />
+        </button>
     </div>
     <div class="col">
         <button type="submit" class="btn-icon">
@@ -49,36 +22,39 @@
         <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
     </div>
 </div>
-<div class="row">
-    <table id="customers">
-        <tr>
-            <th>Company</th>
-            <th>Contact</th>
-            <th>Country</th>
-        </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-        </tr>
-        <tr>
-            <td>Berglunds snabbköp</td>
-            <td>Christina Berglund</td>
-            <td>Sweden</td>
-        </tr>
-        <tr>
-            <td>Centro comercial Moctezuma</td>
-            <td>Francisco Chang</td>
-            <td>Mexico</td>
-        </tr>
-        <tr>
-            <td>Ernst Handel</td>
-            <td>Roland Mendel</td>
-            <td>Austria</td>
-        </tr>
-    </table>
 
-</div>
+<!-- Tables with students -->
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th> Id</th>
+            <th scope="col">ФИО</th>
+            <th scope="col">Год рождения</th>
+            <th scope="col">Группа</th>            
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>the Bird</td>
+            <td>twitter</td>
+        </tr>
+    </tbody>
+</table>
+
 <div class="row">
     Всего выведено записей: 450/450
 </div>

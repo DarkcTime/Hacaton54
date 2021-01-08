@@ -10,8 +10,13 @@ namespace Hacaton54.Models.Repositories
     public class ModelRepository
     {
         /*
-        protected static ks54AISContext context = new ks54AISContext(); 
-     
+        protected static ks54AISContext context = new ks54AISContext();
+
+        public ModelRepository(ks54AISContext _context)
+        {
+            context = _context; 
+        }
+                     
         protected bool SaveChanges()
         {
             try
@@ -25,5 +30,6 @@ namespace Hacaton54.Models.Repositories
             }                   
         }
         */
+        
     }
 }

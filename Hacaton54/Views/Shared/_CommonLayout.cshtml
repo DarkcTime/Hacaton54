@@ -13,20 +13,38 @@
     <!-- Header for all pages -->
     <header>
         <!-- Image and text -->
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-light bg-dark">
+            <!-- Icon -->
             <a class="navbar-brand" href="#">
                 <img src="~/resource/icons/ks54.svg" class="d-inline-block align-top" alt="" loading="lazy">
             </a>
-            <div>
-                Профиль пользователя
+            <!-- Left Menu -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Студенты </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Ведомость</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Дорожная карта</a>
+                    </li>
+                </ul>
             </div>
+            <span class="navbar-text">
+                Navbar text with an inline element
+            </span>          
         </nav>
     </header>
 
+    <!-- Main Page -->
     <div class="container">
         <div class="row">           
+            <!-- Left menu-->
             <div class="col-3 focus-block-white border-radius-standart" asp-controller="Student">
                 <h6>Студенты</h6>
+                <!--
                 <div class="row">
                     <a asp-action="ListStudents">
                         <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Список студентов
@@ -48,9 +66,11 @@
                 <div class="row">
                     <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Документация по ведомости
                 </div>
+                -->
 
             </div>
           
+            <!-- Main content -->
             <div class="col-7 container">
                 @RenderBody()
             </div>

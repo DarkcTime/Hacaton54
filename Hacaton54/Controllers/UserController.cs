@@ -12,32 +12,37 @@ namespace Hacaton54.Controllers
     public class UserController : Controller
     {
 
-        private ks54AISContext context; 
+        private UserRepository userRepository;
         public UserController(ks54AISContext _context)
         {
-            context = _context;
-        }
-
+            userRepository = new UserRepository(_context); 
+        }                    
+        
         public IActionResult Index()
         {
             return View();
         }
-        
+
 
         public ActionResult Authorization()
         {
-            //userRepository.AuthUser(); 
+            //TODO correct auth
+            
+            User testUser = new User() { UserName = "admin", Password = "123" }; 
 
-            context.Users.ToList();
-            return null; 
-            //return RedirectToAction("ListStudent"); 
+            if (userRepository.AuthUser(testUser)){
+                
+            return RedirectToAction("ListStudents", "Student");
+            }
+            else
+            {             
+                return null;
+            }            
         }
 
         public IActionResult Registration()
         {
-            return View(); 
+            return View();
         }
-
-      
     }
 }

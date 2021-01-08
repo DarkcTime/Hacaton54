@@ -8,5 +8,7 @@ namespace Hacaton54.BackEnd
     //TODO drenuv - добавить общие методы
     public class SharedClass
     {
+
+
     }
 }
