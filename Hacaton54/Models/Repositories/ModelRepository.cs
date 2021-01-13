@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Hacaton54.Models.DataModel; 
+using Hacaton54.Models; 
 
 namespace Hacaton54.Models.Repositories
 {
     public class ModelRepository
     {
-        protected static ks54AISContext context = new ks54AISContext(); 
+        /*
+        protected static ks54AISContext context = new ks54AISContext();
 
+        public ModelRepository(ks54AISContext _context)
+        {
+            context = _context; 
+        }
+                     
         protected bool SaveChanges()
         {
             try
@@ -23,5 +29,7 @@ namespace Hacaton54.Models.Repositories
                 return false; 
             }                   
         }
+        */
+        
     }
 }

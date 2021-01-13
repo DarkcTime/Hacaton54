@@ -3,8 +3,9 @@
 }
 
 <!-- Auth form -->
-<div class="parent focus-block-grey border-radius-standart">
-    <form class="center-element">
+<div class="container">
+    <div style="margin-top: 250px" class="row justify-content-center align-items-center">
+        <form>
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -14,9 +15,11 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
-            <div>
-                @Html.ActionLink("Регистрация как студент", "Registration")
+            
+            <div class="row">
+                <button asp-controller="User" asp-action="Registration" type="submit" class="col-sm btn btn-primary">Регистрация</button>
+                <button asp-controller="User" asp-action="Authorization" type="submit" class="col-sm btn btn-primary">Войти</button>
             </div>
-            <button asp-controller="Student" asp-action="ListStudents" type="submit" class="btn btn-primary">Submit</button>
-    </form>
+        </form>
+    </div>
 </div>
