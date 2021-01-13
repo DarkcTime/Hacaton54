@@ -8,7 +8,13 @@ using Hacaton54.Models.Extensions;
 namespace Hacaton54.Models.Repositories
 {
     public class StudentRepository : ModelRepository
-    {   
+    {
+        private ks54AISContext context; 
+        public StudentRepository(ks54AISContext _context)
+        {
+            context = _context; 
+        }
+
         //TODO получение студента по его id 
         public Student GetStudent(int id)
         {
@@ -18,9 +24,7 @@ namespace Hacaton54.Models.Repositories
         // TODO drenuv или нужно использовать студент View? можно перегрузить или просто создать классы с разными именами в случае чего 
         public List<Student> GetStudents()
         {
-            return new List<Student>();
-
-            //return context.Students.ToList(); 
+            return context.Students.ToList();
         }
 
         // TODO drenuv возвращает найденных студентов 

@@ -30,30 +30,22 @@
             <th> Id</th>
             <th scope="col">ФИО</th>
             <th scope="col">Год рождения</th>
-            <th scope="col">Группа</th>            
+            <th scope="col">Группа</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>twitter</td>
-        </tr>
+        @foreach (Student student in Model)
+        {
+            <tr>
+                <th scope="row">@student.Id</th>
+                <td>@student.Name</td>
+                <td>@student.BirthDate</td>
+                <td>@student.Group.GroupBase</td>
+            </tr>
+        }
     </tbody>
-</table>
+
+    </table>
 
 <div class="row">
     Всего выведено записей: 450/450

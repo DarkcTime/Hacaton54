@@ -51,7 +51,6 @@ namespace Hacaton54.Models.DataModel
         {
             if (!optionsBuilder.IsConfigured)
             {
-
                 optionsBuilder.UseSqlServer("Server=84.38.189.95,31760;Database=ks54AIS;User=sa;Password=zxcv777qwer;");
             }
         }
