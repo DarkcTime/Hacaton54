@@ -29,20 +29,10 @@
         <tr>
             <th> Id</th>
             <th scope="col">ФИО</th>
-            <th scope="col">Год рождения</th>
-            <th scope="col">Группа</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (Student student in Model)
-        {
-            <tr>
-                <th scope="row">@student.Id</th>
-                <td>@student.Name</td>
-                <td>@student.BirthDate</td>
-                <td>@student.Group.GroupBase</td>
-            </tr>
-        }
+      
     </tbody>
 
     </table>

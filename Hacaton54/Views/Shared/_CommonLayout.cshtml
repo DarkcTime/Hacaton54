@@ -6,36 +6,53 @@
     <title>@ViewData["Title"] - Hacaton54</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-
+    <link rel="stylesheet" href="~/css/header.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body >
+<body>
     <!-- Header for all pages -->
     <header>
         <!-- Image and text -->
-        <nav class="navbar navbar-light bg-dark">
-            <!-- Icon -->
-            <a class="navbar-brand" href="#">
-                <img src="~/resource/icons/ks54.svg" class="d-inline-block align-top" alt="" loading="lazy">
-            </a>
-            <!-- Left Menu -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Студенты </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Ведомость</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Дорожная карта</a>
-                    </li>
-                </ul>
+        <div class="container-fluid navbar-common">
+            <div class="row align-items-center">
+                <div class="col-3" id="navbar-brand">
+                    <a href="#">
+                      <img src="~/resource/icons/ks54.svg"/>
+                       Колледж связи №54 
+                    </a>
+                </div>
+                <div class="col-6">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col text-center">
+                                <a class="link-menu" href="#">Студенты</a>
+                            </div>
+                            <div class="col text-center">
+                                <a class="link-menu" href="#">Дорожная карта</a>
+                            </div>
+                            <div class="col text-center">
+                                <a class="link-menu" href="#">Ведомости</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+
+                </div>
+                <div class="col-2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <a class="link-menu" href="#">Профиль</a>
+                            </div>
+                            <div class="col">
+                                <a class="link-menu" href="#">Выйти</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <span class="navbar-text">
-                Navbar text with an inline element
-            </span>          
-        </nav>
+        </div>
     </header>
 
     <!-- Main Page -->

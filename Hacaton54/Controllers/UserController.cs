@@ -27,17 +27,21 @@ namespace Hacaton54.Controllers
         public ActionResult Authorization()
         {
             //TODO correct auth
-            
+
+            return RedirectToAction("ListStudents", "Student");
+
+            /*
             User testUser = new User() { UserName = "admin", Password = "123" }; 
 
             if (userRepository.AuthUser(testUser)){
                 
-            return RedirectToAction("ListStudents", "Student");
+            
             }
             else
             {             
                 return null;
-            }            
+            } 
+            */
         }
 
         public IActionResult Registration()

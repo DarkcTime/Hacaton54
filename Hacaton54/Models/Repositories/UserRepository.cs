@@ -24,6 +24,7 @@ namespace Hacaton54.Models.Repositories
         public bool AuthUser(User _user)
         {
             
+            
             var user = context.Users.Where(i => _user.UserName == i.UserName && _user.Password == i.Password); 
             if(user.Count() > 0)
             {                 

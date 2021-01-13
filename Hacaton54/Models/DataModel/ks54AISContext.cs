@@ -472,8 +472,6 @@ namespace Hacaton54.Models.DataModel
             {
                 entity.ToTable("Student");
 
-                entity.Property(e => e.Id).HasColumnName("id");
-
                 entity.Property(e => e.AdressFact).HasMaxLength(100);
 
                 entity.Property(e => e.BirthDate).HasColumnType("date");
@@ -499,9 +497,9 @@ namespace Hacaton54.Models.DataModel
                 entity.Property(e => e.Snils).HasMaxLength(11);
 
                 entity.Property(e => e.SurName)
-                    .IsRequired()
                     .HasMaxLength(100);
 
+                
                 entity.HasOne(d => d.Gender)
                     .WithMany(p => p.Students)
                     .HasForeignKey(d => d.GenderId)
@@ -518,6 +516,7 @@ namespace Hacaton54.Models.DataModel
                     .WithMany(p => p.Students)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK_Student_User");
+                
             });
 
             modelBuilder.Entity<TypeSertificate>(entity =>

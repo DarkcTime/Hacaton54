@@ -12,16 +12,20 @@ namespace Hacaton54.Controllers
     public class StudentController : Controller
     {
 
+        private ks54AISContext context; 
+
         private StudentRepository studentRepository;
         public StudentController(ks54AISContext _context)
         {
-            studentRepository = new StudentRepository(_context);     
+            this.context = _context; 
+            //studentRepository = new StudentRepository(_context);     
         }
 
         public IActionResult ListStudents()
         {
-            List<Student> students = studentRepository.GetStudents(); 
-            return View(students);
+            //List<User> users = context.Users.ToList(); 
+            //List<Student> students = context.Students.ToList(); 
+            return View();
         }
 
         public IActionResult FilteringStudents()
