@@ -3,14 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Hacaton54.Models.DataModel; 
+using Hacaton54.Models.ModelDB; 
 using Hacaton54.Models.Repositories; 
+
+
 
 namespace Hacaton54.Controllers
 {
     public class StudentController : Controller
     {
+        
 
         private ks54AISContext context; 
 
@@ -20,11 +22,12 @@ namespace Hacaton54.Controllers
             this.context = _context; 
             //studentRepository = new StudentRepository(_context);     
         }
+        
 
         public IActionResult ListStudents()
         {
-            //List<User> users = context.Users.ToList(); 
-            //List<Student> students = context.Students.ToList(); 
+            List<User> users = context.Users.ToList(); 
+            List<Student> students = context.Students.ToList(); 
             return View();
         }
 

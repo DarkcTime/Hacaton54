@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hacaton54.Models.DataModel;
-using Hacaton54.Models.Extensions; 
+using Hacaton54.Models.Extensions;
+using Hacaton54.Models.ModelDB; 
+
 
 namespace Hacaton54.Models.Repositories
 {
     public class StudentRepository : ModelRepository
     {
+        
         private ks54AISContext context; 
         public StudentRepository(ks54AISContext _context)
         {
@@ -55,5 +57,6 @@ namespace Hacaton54.Models.Repositories
         }
 
 
+        
     }
 }

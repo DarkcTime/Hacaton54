@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hacaton54.BackEnd;
-using Hacaton54.Models.DataModel; 
+using Hacaton54.Models.ModelDB; 
+
 
 namespace Hacaton54.Models.Repositories
 {
     public class UserRepository : ModelRepository
     {
+        
         public static User AuthorizedUser { get; private set; }
 
         private ks54AISContext context; 
@@ -41,5 +43,6 @@ namespace Hacaton54.Models.Repositories
         {
             return true; 
         }
+        
     }
 }

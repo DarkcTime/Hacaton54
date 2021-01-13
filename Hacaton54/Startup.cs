@@ -9,8 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using Hacaton54.Models.DataModel;
 using Microsoft.EntityFrameworkCore;
+
+using Hacaton54.Models.ModelDB; 
 
 namespace Hacaton54
 {
@@ -29,7 +30,7 @@ namespace Hacaton54
             // получаем строку подключения из файла конфигурации
             string connection = Configuration.GetConnectionString("DefaultConnection");
             // добавляем контекст MobileContext в качестве сервиса в приложение
-            services.AddDbContext<ks54AISContext>(options =>
+           services.AddDbContext<ks54AISContext>(options =>
                 options.UseSqlServer(connection));
             services.AddControllersWithViews();
         }

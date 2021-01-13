@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Folder Include="BackEnd\Excel\" />
-    <Folder Include="Models\DataModel\" />
+    <Folder Include="Models\ModelDB\" />
   </ItemGroup>
 
   <ItemGroup>
