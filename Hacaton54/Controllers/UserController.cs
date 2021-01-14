@@ -5,8 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hacaton54.Models.ModelDB; 
 using Hacaton54.Models.Repositories;
-
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hacaton54.Controllers
 {
@@ -24,7 +23,11 @@ namespace Hacaton54.Controllers
         
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return Content(User.Identity.Name);
+            }
+            return Content("не аутентифицирован");
         }
 
 

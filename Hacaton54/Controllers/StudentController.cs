@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hacaton54.Models.ModelDB; 
-using Hacaton54.Models.Repositories; 
-
-
+using Hacaton54.Models.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hacaton54.Controllers
 {
+
+
     public class StudentController : Controller
     {
         
@@ -22,8 +23,8 @@ namespace Hacaton54.Controllers
             this.context = _context; 
             //studentRepository = new StudentRepository(_context);     
         }
-        
 
+        [Authorize]
         public IActionResult ListStudents()
         {
             List<User> users = context.Users.ToList(); 
