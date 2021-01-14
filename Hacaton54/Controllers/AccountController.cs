@@ -34,10 +34,12 @@ namespace Hacaton54.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == model.UserName && u.Password == model.Password);
+                User user = await _context.Users
+                    .Include(u => u.Role)
+                    .FirstOrDefaultAsync(u => u.UserName == model.UserName && u.Password == model.Password);
                 if (user != null)
                 {
-                    await Authenticate(model.UserName); // аутентификация
+                    await Authenticate(user); // аутентификация
 
                     return RedirectToAction("ListStudents", "Student");
                 }
@@ -45,12 +47,13 @@ namespace Hacaton54.Controllers
             }
             return View(model);
         }
-        private async Task Authenticate(string userName)
+        private async Task Authenticate(User user)
         {
             // создаем один claim
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
             };
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

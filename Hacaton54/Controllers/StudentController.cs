@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Hacaton54.Controllers
 {
 
-
+    [Authorize(Roles = "Admin")]
     public class StudentController : Controller
     {
         
@@ -24,7 +24,7 @@ namespace Hacaton54.Controllers
             //studentRepository = new StudentRepository(_context);     
         }
 
-        [Authorize]
+
         public IActionResult ListStudents()
         {
             List<User> users = context.Users.ToList(); 
