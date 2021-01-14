@@ -1,3 +1,4 @@
 ﻿header: 
 grey: #F2F2F2;
-light blue: #1E77A9; 
+blue: #1E77A9; 
+light blue: #D2E9F9

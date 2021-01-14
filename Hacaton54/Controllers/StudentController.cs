@@ -25,10 +25,9 @@ namespace Hacaton54.Controllers
         
 
         public IActionResult ListStudents()
-        {
-            List<User> users = context.Users.ToList(); 
+        { 
             List<Student> students = context.Students.ToList(); 
-            return View();
+            return View(students);
         }
 
         public IActionResult FilteringStudents()

@@ -1,0 +1,29 @@
+﻿.leftmenu {
+    background-color: #F2F2F2;
+    padding: 20px;
+    border-radius: 20px;
+    padding-top: 0px;
+    margin-left: 20px;
+    margin-right: 20px; 
+}
+
+.item-leftmenu {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.header-leftmenu {
+    color: #1E77A9;
+    background-color: #D2E9F9;
+    padding: 10px; 
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 400px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}

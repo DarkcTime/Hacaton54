@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/header.css" />
+    <link rel="stylesheet" href="~/css/List.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -56,42 +57,8 @@
     </header>
 
     <!-- Main Page -->
-    <div class="container">
-        <div class="row">           
-            <!-- Left menu-->
-            <div class="col-3 focus-block-white border-radius-standart" asp-controller="Student">
-                <h6>Студенты</h6>
-                <!--
-                <div class="row">
-                    <a asp-action="ListStudents">
-                        <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Список студентов
-                    </a>                    
-                </div>
-                <div class="row">
-                    <a asp-action="AddStudent">
-                        <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Добавление студента
-                    </a>
-                </div>
-                <h6>Дорожная карта</h6>
-                <div class="row">
-                    <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Формирование дорожной карты
-                </div>
-                <div class="row">
-                    <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Добавление групп
-                </div>
-                <h6>Ведомости</h6>
-                <div class="row">
-                    <img class="icon-text" src="~/resource/icons/left menu/student.png" /> Документация по ведомости
-                </div>
-                -->
-
-            </div>
-          
-            <!-- Main content -->
-            <div class="col-7 container">
-                @RenderBody()
-            </div>
-        </div>
+    <div class="container-fluid" style="margin-top: 30px">
+           @RenderBody()
     </div>
 
     <!-- Footer for all pages -->
