@@ -7,53 +7,65 @@ using Hacaton54.Models.ModelDB;
 using Hacaton54.Models.Repositories;
 using Microsoft.AspNetCore.Authorization;
 
+using Hacaton54.Models.Extensions;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace Hacaton54.Controllers
 {
 
     public class UserController : Controller
-    {
-        
-
+    {        
         private UserRepository userRepository;
         public UserController(ks54AISContext _context)
         {
             userRepository = new UserRepository(_context); 
         }                    
-        
-        
-        public IActionResult Index()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return Content(User.Identity.Name);
-            }
-            return Content("не аутентифицирован");
-        }
-
-
-        public ActionResult Authorization()
-        {
-            //TODO correct auth
-
-            return RedirectToAction("ListStudents", "Student");
-
-            
-            User testUser = new User() { UserName = "admin", Password = "123" }; 
-
-            if (userRepository.AuthUser(testUser)){
-                
-            
-            }
-            else
-            {             
-                return null;
-            } 
-            
-        }
-
-        public IActionResult Registration()
+             
+        [HttpGet]
+        public IActionResult Login()
         {
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if ( await userRepository.AuthUser(model))
+                {
+                    await Authenticate(UserRepository.AuthorizedUser); // аутентификация
+
+                    return RedirectToAction("ListStudents", "Student");
+                }
+                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+
+            }
+            return View(model);
+
+        }
+            
+        
+        private async Task Authenticate(User user)
+        {
+            // создаем один claim
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
+            };
+            // создаем объект ClaimsIdentity
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            // установка аутентификационных куки
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Account");
         }
     }
 }
