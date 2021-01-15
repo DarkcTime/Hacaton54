@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hacaton54.BackEnd;
-using Hacaton54.Models.ModelDB; 
+using Hacaton54.Models.ModelDB;
+using Microsoft.EntityFrameworkCore;
+using Hacaton54.Models.Extensions;
 
 
 namespace Hacaton54.Models.Repositories
@@ -23,19 +25,17 @@ namespace Hacaton54.Models.Repositories
         
 
         //TODO drenuv - авторизации пользователя. 
-        public bool AuthUser(User _user)
+        public async Task<bool> AuthUser(LoginModel model)
         {
-            
-            
-            var user = context.Users.Where(i => _user.UserName == i.UserName && _user.Password == i.Password); 
-            if(user.Count() > 0)
-            {                 
-                AuthorizedUser = user.FirstOrDefault();
-                return true;
+            User user = await context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.UserName == model.UserName && u.Password == model.Password);
+
+            if(user != null)
+            {
+                AuthorizedUser = user; 
+                return true; 
             }
-            return false;
-            
-            
+
+            return false; 
         }
 
         //TODO drenuv - изменение данных переданных пользвователю (Профиль пользователя)

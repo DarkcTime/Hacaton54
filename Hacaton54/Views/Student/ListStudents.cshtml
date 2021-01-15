@@ -1,42 +1,76 @@
 ﻿
-<!-- Top menu -->
 <div class="row">
-    <div class="col-5">
-        @Html.ActionLink("Параметры фильтрации", "FilteringStudents")
+    <!-- Left menu -->
+    <div class="col-3">
+        <div class="container leftmenu" style="">
+           <div class="row header-leftmenu align-items-center justify-content-center">
+                Студенты
+           </div>
+           <div class="row item-leftmenu justify-content-center">
+                Список
+           </div>
+           <div class="row item-leftmenu justify-content-center">
+                <button type="button" class="btn btn-primary btn-sm">Параметры фильтрации</button>
+           </div>
+           <div class="row item-leftmenu justify-content-center">
+                Добавление
+           </div>
+           <div class="row item-leftmenu justify-content-center">
+                <button type="button" class="btn btn-primary btn-sm">Добавить студента</button>
+           </div>
+           <div class="row item-leftmenu justify-content-center">
+                <button type="button" class="btn btn-primary btn-sm">Добавить из Excel</button>
+           </div>
+           <div class="row item-leftmenu justify-content-center">
+                Экспорт
+           </div>
+           <div class="row item-leftmenu justify-content-center">
+                <button type="button" class="btn btn-primary btn-sm">Экспорт в Excel</button>
+           </div>
+        </div>
     </div>
-    <div class="col">
-        <button type="submit" class="btn-icon">
-            <img src="~/resource/icons/left menu/student.png" width="30" height="30" />
-        </button>
-    </div>
-    <div class="col">
-        <button type="submit" class="btn-icon">
-            <img src="~/resource/icons/left menu/student.png" width="30" height="30" />
-        </button>
-    </div>
-</div>
-<div class="row">
-    <!-- Search form -->
-    <div class="input-group md-form form-sm form-1 pl-0">
-        <img class="icon-text" src="~/resource/icons/footer/email.ico" />
-        <input class="form-control my-0 py-1" type="text" placeholder="Search" aria-label="Search">
+
+    <!-- List -->
+    <div class="col-9">
+        
+        <div class="row">
+            <!-- Search form -->
+            <div class="input-group">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                       aria-describedby="search-addon" />
+                <button type="button" class="btn btn-outline-primary">search</button>
+            </div>
+        </div>
+
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+            <!-- Tables with students -->
+            <table class="table table-bordered table-striped mb-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th> Id</th>
+                        <th scope="col">Имя</th>
+                        <th scope="col">Группа</th>
+                        <th scope="col">Телефон</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Student student in Model)
+                    {
+                        <tr>
+                            <th scope="row">@student.Id</th>
+                            <th>@student.Name</th>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+       
+
+        <!-- Count rows -->
+        <div class="row">
+            Всего выведено записей: 450/450
+        </div>
     </div>
 </div>
 
-<!-- Tables with students -->
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th> Id</th>
-            <th scope="col">ФИО</th>
-        </tr>
-    </thead>
-    <tbody>
-      
-    </tbody>
-
-    </table>
-
-<div class="row">
-    Всего выведено записей: 450/450
-</div>
