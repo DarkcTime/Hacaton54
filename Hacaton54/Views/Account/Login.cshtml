@@ -1,0 +1,23 @@
+﻿@model Hacaton54.Models.LoginModel
+
+
+<h2>Вход на сайтddsfsdfsdf</h2>
+
+<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="All"></div>
+    <div>
+        <div>
+            <label asp-for="UserName">Введите Email</label><br />
+            <input type="text" asp-for="UserName" />
+        </div>
+        <div>
+            <label asp-for="Password">Введите пароль</label><br />
+            <input asp-for="Password" />
+        </div>
+        <div>
+            <input type="submit" value="login" />
+        </div>
+    </div>
+</form>
+
+

@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using Hacaton54.Models.ModelDB; 
+using Hacaton54.Models.ModelDB;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Hacaton54
 {
@@ -32,6 +33,15 @@ namespace Hacaton54
             // добавляем контекст MobileContext в качестве сервиса в приложение
            services.AddDbContext<ks54AISContext>(options =>
                 options.UseSqlServer(connection));
+
+            // установка конфигурации подключения
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
+
             services.AddControllersWithViews();
         }
 
@@ -53,7 +63,8 @@ namespace Hacaton54
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();    // аутентификация
+            app.UseAuthorization();     // авторизация
 
             app.UseEndpoints(endpoints =>
             {
