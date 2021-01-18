@@ -26,13 +26,13 @@
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
-                                <a class="link-menu" href="#">Студенты</a>
+                                @Html.ActionLink("Студенты", "ListStudents", "Student"); 
                             </div>
                             <div class="col text-center">
-                                <a class="link-menu" href="#">Дорожная карта</a>
+                                @Html.ActionLink("Дорожная карта", "ListStudents", "Student");
                             </div>
                             <div class="col text-center">
-                                <a class="link-menu" href="#">Ведомости</a>
+                                @Html.ActionLink("Ведомость", "ListStudents", "Student");
                             </div>
                         </div>
                     </div>
@@ -44,6 +44,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
+
                                 <a class="link-menu" href="#">Профиль</a>
                             </div>
                             <div class="col">

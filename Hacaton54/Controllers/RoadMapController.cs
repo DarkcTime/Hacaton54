@@ -11,9 +11,20 @@ namespace Hacaton54.Controllers
     [Authorize]
     public class RoadMapController : Controller
     {
-        public IActionResult Index()
+        public IActionResult CommonRoadMap()
         {
             return View();
         }
+
+        public IActionResult AddRoadMap()
+        {
+            return View(); 
+        }
+
+        public IActionResult FilteringRoadMap()
+        {
+            return View(); 
+        }
+
     }
 }
