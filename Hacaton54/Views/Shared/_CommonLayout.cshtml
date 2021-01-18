@@ -26,13 +26,13 @@
                     <div class="container">
                         <div class="row">
                             <div class="col text-center">
-                                @Html.ActionLink("Студенты", "ListStudents", "Student"); 
+                                @Html.ActionLink("Студенты", "ListStudents", "Student", null, new { id = "sentId", style = "color: white;" })
                             </div>
                             <div class="col text-center">
-                                @Html.ActionLink("Дорожная карта", "ListStudents", "Student");
+                                @Html.ActionLink("Дорожная карта", "CommonRoadMap", "RoadMap", null, new { id = "sentId", style = "color: white;" })
                             </div>
                             <div class="col text-center">
-                                @Html.ActionLink("Ведомость", "ListStudents", "Student");
+                                @Html.ActionLink("Ведомость", "CommonStatement", "Statements", null, new { id = "sentId", style = "color: white;" })
                             </div>
                         </div>
                     </div>
@@ -43,12 +43,11 @@
                 <div class="col-2">
                     <div class="container">
                         <div class="row">
-                            <div class="col">
-
-                                <a class="link-menu" href="#">Профиль</a>
+                            <div class="col link-menu">
+                                @Html.ActionLink("Профиль", "Account", "User", null, new { id = "sentId", style = "color: white;" })
                             </div>
                             <div class="col">
-                                <a class="link-menu" href="#">Выйти</a>
+                                @Html.ActionLink("Выйти", "Logout", "User", null, new { id = "sentId", style = "color: white;" })
                             </div>
                         </div>
                     </div>
@@ -66,13 +65,7 @@
     <footer id="footer-standart">
         <div class="container">
             <div class="row">
-                Техническая поддержка:
-            </div>
-            <div class="row">
-                <img class="icon-text" src="~/resource/icons/footer/phone.ico" /> 8(977)536-26-46
-            </div>
-            <div class="row">
-                <img class="icon-text" src="~/resource/icons/footer/email.ico" /> hacaton54@yandex.ru
+                Техническая поддержка: hacaton54@yandex.ru
             </div>
         </div>
     </footer>
