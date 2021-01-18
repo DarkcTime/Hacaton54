@@ -1,0 +1,27 @@
+﻿body {
+    background: url('../resource/images/back.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+#auth-container {
+    background-color: #1E77A9;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.style-action-button {
+    background-color: #FF7A00;
+    color: white; 
+    border-radius: 20px;
+}
+
+.textbox {
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+}
+
+.header-auth {
+    text-align: center; 
+    font-size: 22px;
+    color: white;
+}

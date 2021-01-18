@@ -21,7 +21,8 @@ namespace Hacaton54.Controllers
         public UserController(ks54AISContext _context)
         {
             userRepository = new UserRepository(_context); 
-        }                    
+        }    
+
              
         [HttpGet]
         public IActionResult Login()
@@ -33,7 +34,7 @@ namespace Hacaton54.Controllers
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
-            {
+            {   
                 if ( await userRepository.AuthUser(model))
                 {
                     await Authenticate(UserRepository.AuthorizedUser); // аутентификация
@@ -62,10 +63,16 @@ namespace Hacaton54.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
+
+        public IActionResult Account()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Login", "User");
         }
     }
 }
