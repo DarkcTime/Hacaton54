@@ -33,7 +33,7 @@ namespace Hacaton54.Controllers
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
-            {
+            {   
                 if ( await userRepository.AuthUser(model))
                 {
                     await Authenticate(UserRepository.AuthorizedUser); // аутентификация
