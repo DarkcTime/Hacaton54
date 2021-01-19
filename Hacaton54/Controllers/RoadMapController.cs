@@ -18,12 +18,12 @@ namespace Hacaton54.Controllers
 
         public IActionResult AddRoadMap()
         {
-            return View(); 
+            return View();
         }
 
         public IActionResult FilteringRoadMap()
         {
-            return View(); 
+            return View();
         }
 
     }
