@@ -64,7 +64,7 @@ namespace Hacaton54.BackEnd.ExcelHelp
                             int id = 0;
                             Student student = null;
 
-                            if (!String.IsNullOrWhiteSpace(row.Cell(1).GetString()))
+                            if (!row.Cell(1).IsEmpty())
                             {
                                 id = row.Cell(1).GetValue<int>();
                                 student = context.Students.Find(id); // searching Excel row in EF
@@ -76,6 +76,35 @@ namespace Hacaton54.BackEnd.ExcelHelp
                                 context.Students.Add(student);  
                             }
                             student.Name = row.Cell(2).Value.ToString().Trim();
+                            if (!row.Cell(3).IsEmpty())
+                                student.SurName = row?.Cell(3)?.Value?.ToString()?.Trim();
+                            if (!row.Cell(4).IsEmpty())
+                                student.Patronymic = row?.Cell(4)?.Value?.ToString()?.Trim();
+                            if (!row.Cell(4).IsEmpty())
+                                student.Patronymic = row?.Cell(4)?.Value?.ToString()?.Trim();
+                            //if (!row.Cell(5).IsEmpty())группа id
+                            //    student.GroupId = row?.Cell(5)?.Value?.ToString()?.Trim();
+                            if (!row.Cell(6).IsEmpty())
+                                student.BirthDate = row.Cell(6).GetDateTime();
+                            //if (!row.Cell(7).IsEmpty()) genderid
+                            //    student.Gender = row.Cell(7).Value?.ToString()?.Trim();
+                            if (!row.Cell(8).IsEmpty())
+                                student.Phone = row?.Cell(8)?.Value?.ToString()?.Trim();
+                            if (!row.Cell(9).IsEmpty())
+                                student.HousePhone = row?.Cell(9)?.Value?.ToString()?.Trim();
+                            if (!row.Cell(10).IsEmpty())
+                                student.AdressFact = row?.Cell(10)?.Value?.ToString()?.Trim();
+                            if (!row.Cell(11).IsEmpty())
+                                student.MedPolicy = row?.Cell(11)?.Value?.ToString()?.Trim();
+                            if (!row.Cell(12).IsEmpty())
+                                student.Snils = row?.Cell(12)?.Value?.ToString()?.Trim();
+                            //if (!row.Cell(13).IsEmpty())
+                            //    student.Inn = row?.Cell(13)?.Value?.ToString()?.Trim();
+                            if (!row.Cell(14).IsEmpty())
+                                student.EMail = row?.Cell(14)?.Value?.ToString()?.Trim();
+                            //if (!row.Cell(15).IsEmpty()) userId
+                            //    student.UserId = row?.Cell(15)?.Value?.ToString()?.Trim();
+
                         }
                         if (FirstRow) //If no data in Excel file
                         {
