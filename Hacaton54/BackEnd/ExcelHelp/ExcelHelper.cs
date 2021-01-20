@@ -16,25 +16,20 @@ namespace Hacaton54.BackEnd.ExcelHelp
 {
     public class ExcelHelper
     {
-        public static byte[] ExportExcel()
+        public byte[] ExportExcel(List<Student> students)
         {
-            using (ks54AISContext context = new ks54AISContext())
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // library requirment 
+            using (ExcelPackage excel = new ExcelPackage())
             {
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // library requirment 
-                using (ExcelPackage excel = new ExcelPackage())
+                var workSheet = excel.Workbook.Worksheets.Add("Sheet1"); // new sheet
+                workSheet.Cells[1, 1].LoadFromCollection(students, true); // loading sheet
+                int cols = workSheet.Dimension.End.Column;  //get column count
+                workSheet.Cells[1, 1, 1, cols].AutoFilter = true; // filters for headers
+                using (var memoryStream = new MemoryStream()) //saving file
                 {
-                    var workSheet = excel.Workbook.Worksheets.Add("Sheet1"); // new sheet
-                    workSheet.Cells[1, 1].LoadFromCollection(context.Students.ToList(), true); // loading sheet
-                    int cols = workSheet.Dimension.End.Column;  //get column count
-                    workSheet.Cells[1, 1, 1, cols].AutoFilter = true; // filters for headers
-                    using (var memoryStream = new MemoryStream()) //saving file
-                    {
-                        excel.SaveAs(memoryStream);
-                        return memoryStream.ToArray();
-                        //return File(ExcelHelper.ExportExcel(),
-                        //            "application/xlsx",
-                        //            "student.xlsx");
-                    }
+                    excel.SaveAs(memoryStream);
+                    return memoryStream.ToArray();
+                   
                 }
             }
         }
@@ -42,7 +37,7 @@ namespace Hacaton54.BackEnd.ExcelHelp
 
         public static void ImportExcel(IFormFile file)
         {
-            
+
             FileInfo fileInfo = new FileInfo(file.FileName);
             using (ks54AISContext context = new ks54AISContext())
             {
@@ -73,7 +68,7 @@ namespace Hacaton54.BackEnd.ExcelHelp
                             if (student == null)
                             {
                                 student = new Student();
-                                context.Students.Add(student);  
+                                context.Students.Add(student);
                             }
                             student.Name = row.Cell(2).Value.ToString().Trim();
                             if (!row.Cell(3).IsEmpty())

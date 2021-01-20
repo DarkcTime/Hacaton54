@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Hacaton54.Models.ModelDB; 
 using Hacaton54.Models.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Hacaton54.BackEnd.ExcelHelp;
+using System.IO;
 
 namespace Hacaton54.Controllers
 {
@@ -15,7 +17,9 @@ namespace Hacaton54.Controllers
     {
          
 
-        private ks54AISContext context; 
+        private ks54AISContext context;
+
+        private ExcelHelper excelHelper = new ExcelHelper(); 
 
         private StudentRepository studentRepository;
         public StudentController(ks54AISContext _context)
@@ -41,8 +45,27 @@ namespace Hacaton54.Controllers
         { 
             List<Student> students = studentRepository.FoundStudents(searchString);
             int countStudents = students.Count();
-            postData(countStudents, AllStudents); 
+            postData(countStudents, AllStudents);
+            Students = students; 
             return View(students);
+        }
+
+        public IActionResult ExportExcel()
+        {
+            return File(excelHelper.ExportExcel(Students),
+                        "application/xlsx",
+                        "student.xlsx");
+
+        }       
+        public IActionResult ImportStudents()
+        {
+            return View(); 
+        }
+
+        [HttpPost]
+        public IActionResult ImportStudents()
+        {
+            return View(); 
         }
 
         private void postData(int count, int all)
@@ -50,6 +73,8 @@ namespace Hacaton54.Controllers
             ViewData["Count"] = count.ToString();
             ViewData["All"] = all.ToString();            
         }
+
+
 
         public IActionResult FilteringStudents()
         {
