@@ -8,6 +8,7 @@ using Hacaton54.Models.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Hacaton54.BackEnd.ExcelHelp;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace Hacaton54.Controllers
 {
@@ -18,6 +19,8 @@ namespace Hacaton54.Controllers
          
 
         private ks54AISContext context;
+
+        private static List<Student> studentsFromExcel; 
 
         private ExcelHelper excelHelper = new ExcelHelper(); 
 
@@ -59,13 +62,21 @@ namespace Hacaton54.Controllers
         }       
         public IActionResult ImportStudents()
         {
-            return View(); 
+            return View(new List<Student>()); 
         }
 
         [HttpPost]
-        public IActionResult ImportStudents()
+        public IActionResult ImportStudents(IFormFile uploadedFile)
         {
-            return View(); 
+            studentsFromExcel = excelHelper.ImportExcel(uploadedFile);
+            postData(0, studentsFromExcel.Count());
+            return View(studentsFromExcel); 
+        }
+
+        public IActionResult AddStudentsToDataBase()
+        {
+            studentRepository.ImportStudentsFromExcel(studentsFromExcel); 
+            return RedirectToAction("ImportStudents");
         }
 
         private void postData(int count, int all)
@@ -73,8 +84,6 @@ namespace Hacaton54.Controllers
             ViewData["Count"] = count.ToString();
             ViewData["All"] = all.ToString();            
         }
-
-
 
         public IActionResult FilteringStudents()
         {

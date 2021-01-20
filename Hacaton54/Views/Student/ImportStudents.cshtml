@@ -11,13 +11,13 @@
                 <div class="row">
                     <form asp-action="ImportStudents" asp-controller="Student" method="post" enctype="multipart/form-data">
                         <div class="form-group">
-                            <label for="uploadedFile">Файл Excel</label>
+                            <label for="uploadedFile">Файл Excel <b>.xlsx</b></label>
                             <input type="file" class="form-control-file" name="uploadedFile" id="uploadedFile" />
                             <input type="submit" value="загрузить">
                         </div>
                     </form>
                 </div>
-                <div style="padding: 20px">
+                <div >
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
                         <!-- Tables with students -->
                         <table class="table table-bordered table-striped mb-0">
@@ -30,7 +30,7 @@
                             </thead>
                             <tbody>
                                 @foreach (Student student in Model)
-                                {
+                                {                                    
                                     <tr>
                                         <th>
                                             @if (@student.Name != null)
@@ -73,12 +73,12 @@
                 </div>
                 <!-- Count rows -->
                 <div class="row" style="padding-left: 20px; padding-right: 20px;">
-                    Всего выведено записей: @ViewData["Count"]/@ViewData["All"]
+                    Всего выведено записей: @ViewData["All"]
                 </div>
 
                 <div class="row">
                     <button type="button" class="btn btn-primary btn-sm">
-                        @Html.ActionLink("Добавить в БД", "ExportExcel", "Student", null, new { style = "color:white" })
+                        @Html.ActionLink("Добавить в БД", "AddStudentsToDataBase", "Student", null, new { style = "color:white" })
                     </button>
                 </div>
 

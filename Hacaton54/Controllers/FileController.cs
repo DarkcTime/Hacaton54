@@ -22,7 +22,7 @@ namespace Hacaton54.Controllers
                 //return File(ExcelHelper.ExportExcel(),
                 //            "application/xlsx",
                 //            "student.xlsx");
-                ExcelHelper.ImportExcel(uploadedFile);
+                //ExcelHelper.ImportExcel(uploadedFile);
                 
             }
 

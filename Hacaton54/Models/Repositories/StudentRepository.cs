@@ -47,7 +47,6 @@ namespace Hacaton54.Models.Repositories
 
             //TODO Filters vlad 
 
-
             return students;             
         }
       
@@ -55,6 +54,23 @@ namespace Hacaton54.Models.Repositories
         public bool AddStudent(Student student)
         {
             return true; 
+        }
+
+        public void ImportStudentsFromExcel(List<Student> students)
+        {
+            foreach (Student student in students)
+            {
+                Student findStudent = context.Students.Find(student.Id);
+                if(findStudent != null)
+                {
+                    context.Students.Update(findStudent);   
+                }
+                else
+                {
+                    context.Students.Add(student); 
+                }
+            }
+            context.SaveChanges(); 
         }
 
         // TODO редактивароние данных о студенте

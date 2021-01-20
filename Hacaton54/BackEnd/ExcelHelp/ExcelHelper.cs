@@ -29,92 +29,82 @@ namespace Hacaton54.BackEnd.ExcelHelp
                 {
                     excel.SaveAs(memoryStream);
                     return memoryStream.ToArray();
-                   
+
                 }
             }
         }
 
 
-        public static void ImportExcel(IFormFile file)
+        public List<Student> ImportExcel(IFormFile file)
         {
 
             FileInfo fileInfo = new FileInfo(file.FileName);
-            using (ks54AISContext context = new ks54AISContext())
+
+            List<Student> students = new List<Student>();
+
+            if (fileInfo.Extension.ToLower() == ".xlsx")
             {
-                if (fileInfo.Extension.ToLower() == ".xlsx")
+                // reading the Excel file using ClosedXML
+                using (XLWorkbook workbook = new XLWorkbook(file.OpenReadStream()))
                 {
-                    // reading the Excel file using ClosedXML
-                    using (XLWorkbook workbook = new XLWorkbook(file.OpenReadStream()))
+
+                    IXLWorksheet worksheet = workbook.Worksheet(1); //  go to the first sheet
+                    foreach (IXLRow row in worksheet.RowsUsed())
                     {
+                        //TODO no test
+                        if (row.RowNumber() == 1)
+                            continue;
 
-                        IXLWorksheet worksheet = workbook.Worksheet(1); //  go to the first sheet
-                        bool FirstRow = true;
-                        foreach (IXLRow row in worksheet.RowsUsed())
+                        Student student = new Student();
+
+                        if (!row.Cell(1).IsEmpty())
                         {
-                            if (FirstRow == true)
-                            {
-                                FirstRow = false;
-                                continue;
-                            }
-                            int id = 0;
-                            Student student = null;
-
-                            if (!row.Cell(1).IsEmpty())
-                            {
-                                id = row.Cell(1).GetValue<int>();
-                                student = context.Students.Find(id); // searching Excel row in EF
-                            }
-
-                            if (student == null)
-                            {
-                                student = new Student();
-                                context.Students.Add(student);
-                            }
-                            student.Name = row.Cell(2).Value.ToString().Trim();
-                            if (!row.Cell(3).IsEmpty())
-                                student.SurName = row?.Cell(3)?.Value?.ToString()?.Trim();
-                            if (!row.Cell(4).IsEmpty())
-                                student.Patronymic = row?.Cell(4)?.Value?.ToString()?.Trim();
-                            if (!row.Cell(4).IsEmpty())
-                                student.Patronymic = row?.Cell(4)?.Value?.ToString()?.Trim();
-                            //if (!row.Cell(5).IsEmpty())группа id
-                            //    student.GroupId = row?.Cell(5)?.Value?.ToString()?.Trim();
-                            if (!row.Cell(6).IsEmpty())
-                                student.BirthDate = row.Cell(6).GetDateTime();
-                            //if (!row.Cell(7).IsEmpty()) genderid
-                            //    student.Gender = row.Cell(7).Value?.ToString()?.Trim();
-                            if (!row.Cell(8).IsEmpty())
-                                student.Phone = row?.Cell(8)?.Value?.ToString()?.Trim();
-                            if (!row.Cell(9).IsEmpty())
-                                student.HousePhone = row?.Cell(9)?.Value?.ToString()?.Trim();
-                            if (!row.Cell(10).IsEmpty())
-                                student.AdressFact = row?.Cell(10)?.Value?.ToString()?.Trim();
-                            if (!row.Cell(11).IsEmpty())
-                                student.MedPolicy = row?.Cell(11)?.Value?.ToString()?.Trim();
-                            if (!row.Cell(12).IsEmpty())
-                                student.Snils = row?.Cell(12)?.Value?.ToString()?.Trim();
-                            //if (!row.Cell(13).IsEmpty())
-                            //    student.Inn = row?.Cell(13)?.Value?.ToString()?.Trim();
-                            if (!row.Cell(14).IsEmpty())
-                                student.EMail = row?.Cell(14)?.Value?.ToString()?.Trim();
-                            //if (!row.Cell(15).IsEmpty()) userId
-                            //    student.UserId = row?.Cell(15)?.Value?.ToString()?.Trim();
-
+                            student.Id = Convert.ToInt32(row.Cell(1).Value.ToString().Trim()); 
                         }
-                        if (FirstRow) //If no data in Excel file
-                        {
-                            return;
-                        }
+
+                        student.Name = row.Cell(2).Value.ToString().Trim();
+                        if (!row.Cell(3).IsEmpty())
+                            student.SurName = row?.Cell(3)?.Value?.ToString()?.Trim();
+                        if (!row.Cell(4).IsEmpty())
+                            student.Patronymic = row?.Cell(4)?.Value?.ToString()?.Trim();
+                        if (!row.Cell(4).IsEmpty())
+                            student.Patronymic = row?.Cell(4)?.Value?.ToString()?.Trim();
+                        //if (!row.Cell(5).IsEmpty())группа id
+                        //    student.GroupId = row?.Cell(5)?.Value?.ToString()?.Trim();
+                        if (!row.Cell(6).IsEmpty())
+                            student.BirthDate = row.Cell(6).GetDateTime();
+                        //if (!row.Cell(7).IsEmpty()) genderid
+                        //    student.Gender = row.Cell(7).Value?.ToString()?.Trim();
+                        if (!row.Cell(8).IsEmpty())
+                            student.Phone = row?.Cell(8)?.Value?.ToString()?.Trim();
+                        if (!row.Cell(9).IsEmpty())
+                            student.HousePhone = row?.Cell(9)?.Value?.ToString()?.Trim();
+                        if (!row.Cell(10).IsEmpty())
+                            student.AdressFact = row?.Cell(10)?.Value?.ToString()?.Trim();
+                        if (!row.Cell(11).IsEmpty())
+                            student.MedPolicy = row?.Cell(11)?.Value?.ToString()?.Trim();
+                        if (!row.Cell(12).IsEmpty())
+                            student.Snils = row?.Cell(12)?.Value?.ToString()?.Trim();
+                        //if (!row.Cell(13).IsEmpty())
+                        //    student.Inn = row?.Cell(13)?.Value?.ToString()?.Trim();
+                        if (!row.Cell(14).IsEmpty())
+                            student.EMail = row?.Cell(14)?.Value?.ToString()?.Trim();
+                        //if (!row.Cell(15).IsEmpty()) userId
+                        //    student.UserId = row?.Cell(15)?.Value?.ToString()?.Trim();
+
+                        students.Add(student);
+
                     }
-                    context.SaveChanges();
-                }
-                else
-                {
-                    //            ////If file extension of the uploaded file is different then .xlsx
-                    //            
-                }
+                } 
             }
-        }
+            else
+            {
+                //            ////If file extension of the uploaded file is different then .xlsx
+                //            
+            }
 
+            return students; 
+
+        }    
     }
 }
