@@ -17,30 +17,40 @@ namespace Hacaton54.Models.Repositories
             context = _context; 
         }
 
+        public List<Student> ListStudents; 
+
         //TODO получение студента по его id 
         public Student GetStudent(int id)
         {
-            return new Student(); 
+            return new Student();
         }
 
         // TODO drenuv или нужно использовать студент View? можно перегрузить или просто создать классы с разными именами в случае чего 
         public List<Student> GetStudents()
         {
-            return context.Students.ToList();
+            ListStudents = this.context.Students.ToList();
+            return ListStudents;;
         }
 
-        // TODO drenuv возвращает найденных студентов 
-        public List<Student> GetSearchedStudent(string str)
-        {
-            return new List<Student>(); 
-        }
-                 
-        //это пока оставим
-        public List<Student> GetFilterdStudent()
-        {
-            return new List<Student>(); 
-        }
 
+        public List<Student> FoundStudents(string searchStr)
+        {
+            List<Student> students; 
+            if(searchStr != null)
+                students = context.Students.Where(i => i.Name != null && i.Name.Contains(searchStr)
+                                               || i.SurName != null && i.SurName.Contains(searchStr)
+                                               || i.Patronymic != null && i.Patronymic.Contains(searchStr)
+                                               || i.Group.GroupName != null && i.Group.GroupName.Contains(searchStr))
+                                                .ToList();
+            else
+                students = context.Students.ToList();
+
+            //TODO Filters vlad 
+
+
+            return students;             
+        }
+      
         // TODO добавление студента
         public bool AddStudent(Student student)
         {
