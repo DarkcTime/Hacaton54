@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Authorization;
 using Hacaton54.BackEnd.ExcelHelp;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Data.Sql;
+
+
 
 namespace Hacaton54.Controllers
 {
@@ -25,18 +28,21 @@ namespace Hacaton54.Controllers
         private ExcelHelper excelHelper = new ExcelHelper(); 
 
         private StudentRepository studentRepository;
+
+        private static List<Student> Students { get; set; }
+
+
+        private static int AllStudents;
+
+
         public StudentController(ks54AISContext _context)
         {
             //this.context = _context; 
             studentRepository = new StudentRepository(_context);     
         }
-
-        private static List<Student> Students { get; set; }
-
-        private static int AllStudents; 
-
+        
         public IActionResult ListStudents()
-        { 
+        {
             Students = studentRepository.GetStudents();
             AllStudents = Students.Count();
             postData(AllStudents, AllStudents);

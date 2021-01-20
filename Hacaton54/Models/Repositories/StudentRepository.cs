@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hacaton54.Models.Extensions;
-using Hacaton54.Models.ModelDB; 
+using Hacaton54.Models.ModelDB;
+//package for Entity Framework
+using Microsoft.EntityFrameworkCore;
+
 
 
 namespace Hacaton54.Models.Repositories
@@ -17,8 +20,6 @@ namespace Hacaton54.Models.Repositories
             context = _context; 
         }
 
-        public List<Student> ListStudents; 
-
         //TODO получение студента по его id 
         public Student GetStudent(int id)
         {
@@ -28,26 +29,25 @@ namespace Hacaton54.Models.Repositories
         // TODO drenuv или нужно использовать студент View? можно перегрузить или просто создать классы с разными именами в случае чего 
         public List<Student> GetStudents()
         {
-            ListStudents = this.context.Students.ToList();
-            return ListStudents;;
+            return this.context.Students.Include(p => p.Group).ToList();
         }
 
 
         public List<Student> FoundStudents(string searchStr)
         {
-            List<Student> students; 
-            if(searchStr != null)
-                students = context.Students.Where(i => i.Name != null && i.Name.Contains(searchStr)
+            //TODO refactore code
+            List<Student> students = new List<Student>();
+            if (searchStr != null)
+                students = context.Students.Include(p => p.Group).Where(i => i.Name != null && i.Name.Contains(searchStr)
                                                || i.SurName != null && i.SurName.Contains(searchStr)
                                                || i.Patronymic != null && i.Patronymic.Contains(searchStr)
                                                || i.Group.GroupName != null && i.Group.GroupName.Contains(searchStr))
                                                 .ToList();
             else
-                students = context.Students.ToList();
+                students = GetStudents();
+            
+            return students;
 
-            //TODO Filters vlad 
-
-            return students;             
         }
       
         // TODO добавление студента
