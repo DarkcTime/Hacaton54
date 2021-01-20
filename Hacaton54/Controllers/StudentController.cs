@@ -8,6 +8,8 @@ using Hacaton54.Models.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Hacaton54.BackEnd.ExcelHelp;
 using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Hacaton54.Controllers
 {
@@ -22,10 +24,12 @@ namespace Hacaton54.Controllers
         private ExcelHelper excelHelper = new ExcelHelper(); 
 
         private StudentRepository studentRepository;
+        private GroupRepository groupRepository;
         public StudentController(ks54AISContext _context)
         {
             //this.context = _context; 
-            studentRepository = new StudentRepository(_context);     
+            studentRepository = new StudentRepository(_context);
+            groupRepository = new GroupRepository(_context);
         }
 
         private static List<Student> Students { get; set; }
@@ -63,7 +67,7 @@ namespace Hacaton54.Controllers
         }
 
         [HttpPost]
-        public IActionResult ImportStudents()
+        public IActionResult ImportStudents(IFormFile uploadFile)
         {
             return View(); 
         }
@@ -83,7 +87,24 @@ namespace Hacaton54.Controllers
 
         public IActionResult AddStudent()
         {
+            ViewData["AllGroup"] = GetGroup();
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddStudent(Student student)
+        {
+            if (studentRepository.AddStudent(student))
+            {
+
+            }
+            ViewData["AllGroup"] = GetGroup();
+            return View();
+        }
+
+        private SelectList GetGroup()
+        {
+            return new SelectList(groupRepository.GetGroups(), "Id", "GroupName");
         }
     }
 }
