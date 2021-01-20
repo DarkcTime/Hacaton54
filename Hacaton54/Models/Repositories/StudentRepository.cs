@@ -50,10 +50,54 @@ namespace Hacaton54.Models.Repositories
 
         }
       
-        // TODO добавление студента
         public bool AddStudent(Student student)
         {
-            return true; 
+            bool right = true;
+            if (String.IsNullOrWhiteSpace(student.Name))
+            {
+                right = false;
+            }
+
+            //if (!String.IsNullOrWhiteSpace(student.Inn) && student.Inn.Length > 20)
+            //{
+            //    right = false;
+            //}
+
+            if (!String.IsNullOrWhiteSpace(student.MedPolicy) && student.MedPolicy.Length > 20)
+            {
+                right = false;
+            }
+
+            if (!String.IsNullOrWhiteSpace(student.Snils) && student.Snils.Length > 20)
+            {
+                right = false;
+            }
+
+            if (!String.IsNullOrWhiteSpace(student.Phone) && student.Phone.Length > 20)
+            {
+                right = false;
+            }
+
+            if (!String.IsNullOrWhiteSpace(student.HousePhone) && student.HousePhone.Length > 20)
+            {
+                right = false;
+            }
+
+            if (right)
+            {
+                try
+                {
+                    context.Students.Add(student);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
+
         }
 
         public void ImportStudentsFromExcel(List<Student> students)

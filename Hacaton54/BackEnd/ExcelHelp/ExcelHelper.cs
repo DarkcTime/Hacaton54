@@ -11,6 +11,7 @@ using ClosedXML.Excel; // another library for Excel
 using OfficeOpenXml; // main library to work with Excel
 using Hacaton54.Models.ModelDB;
 using Microsoft.AspNetCore.Http;
+using Hacaton54.Models.Extensions;
 
 namespace Hacaton54.BackEnd.ExcelHelp
 {
@@ -19,10 +20,28 @@ namespace Hacaton54.BackEnd.ExcelHelp
         public byte[] ExportExcel(List<Student> students)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // library requirment 
+            var studentView = students.Select(i => new StudentView()
+            {
+                Id = i.Id,
+                Name = i?.Name,
+                SurName = i?.SurName,
+                Patronymic = i?.Patronymic,
+                GroupName = i?.Group?.GroupName,
+                BirthDate = i?.BirthDate,
+                GenderName = i?.Gender?.Name,
+                Phone = i?.Phone,
+                HousePhone = i?.HousePhone,
+                AdressFact = i?.AdressFact,
+                MedPolicy = i?.MedPolicy,
+                Snils = i?.Snils,
+                Inn = i?.Inn,
+                EMail = i?.EMail
+            }
+            ).ToList();
             using (ExcelPackage excel = new ExcelPackage())
             {
                 var workSheet = excel.Workbook.Worksheets.Add("Sheet1"); // new sheet
-                workSheet.Cells[1, 1].LoadFromCollection(students, true); // loading sheet
+                workSheet.Cells[1, 1].LoadFromCollection(studentView, true); // loading sheet
                 int cols = workSheet.Dimension.End.Column;  //get column count
                 workSheet.Cells[1, 1, 1, cols].AutoFilter = true; // filters for headers
                 using (var memoryStream = new MemoryStream()) //saving file

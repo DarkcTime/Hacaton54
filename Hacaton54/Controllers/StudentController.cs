@@ -38,7 +38,8 @@ namespace Hacaton54.Controllers
         public StudentController(ks54AISContext _context)
         {
             //this.context = _context; 
-            studentRepository = new StudentRepository(_context);     
+            studentRepository = new StudentRepository(_context);
+            groupRepository = new GroupRepository(_context);
         }
         
         public IActionResult ListStudents()
@@ -98,7 +99,24 @@ namespace Hacaton54.Controllers
 
         public IActionResult AddStudent()
         {
+            ViewData["AllGroup"] = GetGroup();
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddStudent(Student student)
+        {
+            if (studentRepository.AddStudent(student))
+            {
+
+            }
+            ViewData["AllGroup"] = GetGroup();
+            return View();
+        }
+
+        private SelectList GetGroup()
+        {
+            return new SelectList(groupRepository.GetGroups(), "Id", "GroupName");
         }
     }
 }
