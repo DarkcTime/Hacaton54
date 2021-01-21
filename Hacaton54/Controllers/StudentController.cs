@@ -21,7 +21,7 @@ namespace Hacaton54.Controllers
     {
          
 
-        private ks54AISContext context;
+        //private ks54AISContext context;
 
         private static List<Student> studentsFromExcel; 
 
@@ -65,7 +65,7 @@ namespace Hacaton54.Controllers
 
         public IActionResult ExportExcel()
         {
-            return File(excelHelper.ExportExcel(Students),
+            return File(excelHelper.ExportExcelStudent(Students),
                         "application/xlsx",
                         "student.xlsx");
 

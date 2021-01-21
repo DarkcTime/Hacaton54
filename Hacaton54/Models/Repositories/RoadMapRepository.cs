@@ -26,8 +26,10 @@ namespace Hacaton54.Models.Repositories
                 .Include(p => p.Group.GroupSpeciality)
                 .Include(p => p.Attestation)
                 .Include(p => p.Attestation.Month)
+                .Include(p => p.Attestation.Form)
                 .Include(p => p.Attestation.DisciplineEmployee.Employee)
                 .Include(p => p.Attestation.DisciplineEmployee.Discipline)
+                .Include(p => p.Attestation.DisciplineEmployee.Discipline.DisciplineIndex)
                 .ToList();
             return RoadMaps; 
         }
