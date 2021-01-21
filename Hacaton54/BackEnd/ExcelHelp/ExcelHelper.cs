@@ -9,7 +9,7 @@ using System.IO;
 using Microsoft.Win32;
 using ClosedXML.Excel; // another library for Excel
 using OfficeOpenXml; // main library to work with Excel
-using Hacaton54.Models.ModelDB;
+using Hacaton54.Models.DataModel;
 using Microsoft.AspNetCore.Http;
 using Hacaton54.Models.Extensions;
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Hacaton54.Models.ModelDB;
+using Hacaton54.Models.DataModel;
 
 namespace Hacaton54.Models.Repositories
 {

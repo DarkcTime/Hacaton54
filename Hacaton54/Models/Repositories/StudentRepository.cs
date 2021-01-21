@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hacaton54.Models.Extensions;
-using Hacaton54.Models.ModelDB;
+using Hacaton54.Models.DataModel;
 //package for Entity Framework
 using Microsoft.EntityFrameworkCore;
 

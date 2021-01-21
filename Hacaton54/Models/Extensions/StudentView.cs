@@ -1,4 +1,4 @@
-﻿using Hacaton54.Models.ModelDB;
+﻿using Hacaton54.Models.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace Hacaton54.Models.Extensions
         public string AdressFact { get; set; }
         public string MedPolicy { get; set; }
         public string Snils { get; set; }
-        public int? Inn { get; set; }
+        public string Inn { get; set; }
         public string EMail { get; set; }
     }
 }
