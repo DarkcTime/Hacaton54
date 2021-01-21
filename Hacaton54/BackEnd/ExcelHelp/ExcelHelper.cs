@@ -53,16 +53,37 @@ namespace Hacaton54.BackEnd.ExcelHelp
             }
         }
 
-        public byte[] ExportExcelRoad(List<RoadMap> roadMaps)
+        public byte[] ExportExcelSCore(List<AttestationStudent> attestationStudents)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // library requirment 
-            var studentView = roadMaps.Select(i => new RoadMapView(i)
+            var scoreView = attestationStudents.Select(i => new ScoreView(i)
 
             ).ToList();
             using (ExcelPackage excel = new ExcelPackage())
             {
                 var workSheet = excel.Workbook.Worksheets.Add("Sheet1"); // new sheet
-                workSheet.Cells[1, 1].LoadFromCollection(studentView, true); // loading sheet
+                workSheet.Cells[1, 1].LoadFromCollection(scoreView, true); // loading sheet
+                int cols = workSheet.Dimension.End.Column;  //get column count
+                workSheet.Cells[1, 1, 1, cols].AutoFilter = true; // filters for headers
+                using (var memoryStream = new MemoryStream()) //saving file
+                {
+                    excel.SaveAs(memoryStream);
+                    return memoryStream.ToArray();
+
+                }
+            }
+        }
+
+        public byte[] ExportExcelRoad(List<RoadMap> roadMaps)
+        {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // library requirment 
+            var roadMapView = roadMaps.Select(i => new RoadMapView(i)
+
+            ).ToList();
+            using (ExcelPackage excel = new ExcelPackage())
+            {
+                var workSheet = excel.Workbook.Worksheets.Add("Sheet1"); // new sheet
+                workSheet.Cells[1, 1].LoadFromCollection(roadMapView, true); // loading sheet
                 int cols = workSheet.Dimension.End.Column;  //get column count
                 workSheet.Cells[1, 1, 1, cols].AutoFilter = true; // filters for headers
                 using (var memoryStream = new MemoryStream()) //saving file
