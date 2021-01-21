@@ -19,5 +19,15 @@ namespace Hacaton54.Models.Repositories
         {
             return context.Groups.ToList();
         }
+
+        //public Group FindGroup(string nameGroup)
+        //{
+        //    return GetGroups().Find(i => i.GroupName == nameGroup);
+        //}
+
+        public Group FindGroup(string nameGroup)
+        {
+            return GetGroups().Find(i => i.GroupName == nameGroup);
+        }
     }
 }

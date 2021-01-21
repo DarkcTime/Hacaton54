@@ -111,6 +111,8 @@ namespace Hacaton54.Models.Repositories
                 }
                 else
                 {
+                    student.Group = null;
+                    student.Gender = null;
                     context.Students.Add(student); 
                 }
             }
