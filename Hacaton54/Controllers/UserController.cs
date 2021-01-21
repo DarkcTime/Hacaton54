@@ -12,6 +12,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
+
 namespace Hacaton54.Controllers
 {
 
@@ -27,9 +28,9 @@ namespace Hacaton54.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model, string returnUrl )
@@ -75,6 +76,16 @@ namespace Hacaton54.Controllers
 
         public IActionResult Account()
         {
+
+            string login = HttpContext.User.Identity.Name; 
+
+            return View(userRepository.GetAccountModel(login));
+        }
+
+        [HttpPost]
+        public IActionResult Account(AccountModel account)
+        {
+
             return View();
         }
 
