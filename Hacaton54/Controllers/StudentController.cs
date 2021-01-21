@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Data.Sql;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hacaton54.Controllers
 {
@@ -24,7 +25,7 @@ namespace Hacaton54.Controllers
 
         private static List<Student> studentsFromExcel; 
 
-        private ExcelHelper excelHelper = new ExcelHelper(); 
+        private ExcelHelper excelHelper ; 
 
         private StudentRepository studentRepository;
 
@@ -40,6 +41,8 @@ namespace Hacaton54.Controllers
             //this.context = _context; 
             studentRepository = new StudentRepository(_context);
             groupRepository = new GroupRepository(_context);
+            excelHelper = new ExcelHelper(_context);
+
         }
         
         public IActionResult ListStudents()

@@ -32,15 +32,23 @@ namespace Hacaton54.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> Login(LoginModel model, string returnUrl )
         {
             if (ModelState.IsValid)
             {   
                 if ( await userRepository.AuthUser(model))
                 {
                     await Authenticate(UserRepository.AuthorizedUser); // аутентификация
+                    if (String.IsNullOrEmpty(returnUrl))
+                    {
+                    
+                        return RedirectToAction("ListStudents", "Student");
 
-                    return RedirectToAction("ListStudents", "Student");
+                    }
+                    else
+                    {
+                        return Redirect(returnUrl);
+                    }
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
 

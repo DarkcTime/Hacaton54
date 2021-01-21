@@ -29,7 +29,7 @@ namespace Hacaton54.Models.Repositories
         // TODO drenuv или нужно использовать студент View? можно перегрузить или просто создать классы с разными именами в случае чего 
         public List<Student> GetStudents()
         {
-            return this.context.Students.Include(p => p.Group).ToList();
+            return this.context.Students.Include(p => p.Group).Include(p => p.Gender).ToList();
         }
 
 
@@ -111,6 +111,8 @@ namespace Hacaton54.Models.Repositories
                 }
                 else
                 {
+                    student.Group = null;
+                    student.Gender = null;
                     context.Students.Add(student); 
                 }
             }

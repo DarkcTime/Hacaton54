@@ -1,6 +1,7 @@
 ﻿@model Hacaton54.Models.Extensions.LoginModel
 @{
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
+    var returnUrl = @Context.Request.Query["returnurl"];
 }
 
 <!-- Auth form -->
@@ -16,7 +17,7 @@
                         Учет документов
                     </div>
                 </div>
-                <form asp-action="Login" asp-controller="User" asp-anti-forgery="true">
+                <form asp-action="Login" asp-controller="User" asp-route-returnurl="@returnUrl" asp-anti-forgery="true">
                     <div class="form-group">
                         <input type="text" asp-for="UserName" class="form-control textbox" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите ваш логин">
                     </div>
