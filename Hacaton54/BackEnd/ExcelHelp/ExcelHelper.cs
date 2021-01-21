@@ -20,23 +20,8 @@ namespace Hacaton54.BackEnd.ExcelHelp
         public byte[] ExportExcel(List<Student> students)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // library requirment 
-            var studentView = students.Select(i => new StudentView()
-            {
-                Id = i.Id,
-                Name = i?.Name,
-                SurName = i?.SurName,
-                Patronymic = i?.Patronymic,
-                GroupName = i?.Group?.GroupName,
-                BirthDate = i?.BirthDate,
-                GenderName = i?.Gender?.Name,
-                Phone = i?.Phone,
-                HousePhone = i?.HousePhone,
-                AdressFact = i?.AdressFact,
-                MedPolicy = i?.MedPolicy,
-                Snils = i?.Snils,
-                Inn = i?.Inn,
-                EMail = i?.EMail
-            }
+            var studentView = students.Select(i => new StudentView(i)
+
             ).ToList();
             using (ExcelPackage excel = new ExcelPackage())
             {
