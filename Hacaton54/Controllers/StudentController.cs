@@ -10,8 +10,7 @@ using Hacaton54.BackEnd.ExcelHelp;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Data.Sql;
-
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Hacaton54.Controllers
 {
@@ -31,6 +30,7 @@ namespace Hacaton54.Controllers
 
         private static List<Student> Students { get; set; }
 
+        private GroupRepository groupRepository; 
 
         private static int AllStudents;
 
@@ -117,6 +117,20 @@ namespace Hacaton54.Controllers
         private SelectList GetGroup()
         {
             return new SelectList(groupRepository.GetGroups(), "Id", "GroupName");
+        }
+
+        
+        public IActionResult EditStudent(int id)
+        {
+            Student student = studentRepository.GetStudent(id); 
+            return View(student); 
+        }
+
+        //TODO drenuv контроллер для страницы редактирования
+        [HttpPost]
+        public IActionResult EditStudent(Student student)
+        {
+            return View();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Hacaton54.Models.Repositories
         //TODO получение студента по его id 
         public Student GetStudent(int id)
         {
-            return new Student();
+            return context.Students.Find(id);
         }
 
         // TODO drenuv или нужно использовать студент View? можно перегрузить или просто создать классы с разными именами в случае чего 
