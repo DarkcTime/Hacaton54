@@ -99,6 +99,7 @@ namespace Hacaton54.BackEnd.ExcelHelp
         public List<Student> ImportExcel(IFormFile file)
         {
 
+
             FileInfo fileInfo = new FileInfo(file.FileName);
 
             List<Student> students = new List<Student>();

@@ -1,26 +1,49 @@
 ﻿<div class="container">
+
+    <div class="row justify-content-center" style="margin-bottom: 30px">
+        <h3>Импорт Excel файла</h3>
+    </div>
+
     <div class="row">
         <!-- Help -->
         <div class="col">
-            
+            <h5>Справка</h5>
+            <p> 1) Экспортируйте Excel файл для приведения к необходимому формату</p>
+            <p> (Вы можете экспортировать пуской Excel файл, экспортировать файл со студентами или использовать уже имеющийся в нужном формате)</p>
+            <button type="button" class="btn btn-primary btn-sm" style="margin-top: 5px; margin-bottom: 5px">
+                @Html.ActionLink("Пустой Excel файл", "ExportExcelEmpty", "Student", null, new { style = "color:white" })
+            </button>
+            <p> 2) Выберите файл со студентами</p>
+            <p> 3) Нажмите кнопку "Загрузить" для загрузки файла на сервер и просмотра предварительных данных</p>
+            <p> (Если ip студента совпадает с первоначальным, данные о нем <b>редактируются</b></p>
+                Для <b>добавления студента</b>, просто оставьте поле <b>Id</b> пустым)
+            <p> 4) Убедившись в корректности предварительных данных, нажмите кнопку добавить</p>
         </div>
 
         <!-- Add/Edit Excel -->
         <div class="col">
             <div class="container">
                 <div class="row">
-                    <form asp-action="ImportStudents" asp-controller="Student" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="uploadedFile">Файл Excel <b>.xlsx</b></label>
-                            <input type="file" class="form-control-file" name="uploadedFile" id="uploadedFile" />
-                            <input type="submit" value="загрузить">
-                        </div>
-                    </form>
+                    <div class="col">
+                        <form asp-action="ImportStudents" asp-controller="Student" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="uploadedFile">Файл Excel <b>.xlsx</b></label>
+                                <input type="file" class="form-control-file" name="uploadedFile" id="uploadedFile" />
+                                <input type="submit" value="загрузить">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <b>@ViewData["Success"]</b>
+                        <p>@ViewData["Exception"]</p>
+                    </div>
+                  
                 </div>
-                <div >
+                <div>
                     <div class="table-wrapper-scroll-y my-custom-scrollbar">
                         <!-- Tables with students -->
-                        <table class="table table-bordered table-striped mb-0">
+                        <p><b>Предварительные данные</b></p>
+                        <table class="table table-bordered table-striped mb-0" height="200px">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">ФИО</th>
@@ -30,55 +53,31 @@
                             </thead>
                             <tbody>
                                 @foreach (Student student in Model)
-                                {                                    
-                                    <tr>
-                                        <th>
-                                            @if (@student.Name != null)
-                                            {
-                                                @student.Name
-                                            }
-
-                                            @if (@student.SurName != null)
-                                            {
-                                                @student.SurName
-                                            }
-
-                                            @if (@student.Patronymic != null)
-                                            {
-                                                @student.Patronymic
-                                            }
-                                        </th>
-
-                                        @if (student.GroupId != null)
-                                        {
-                                            <th>@student.Group.GroupName</th>
-                                        }
-                                        else
-                                        {
-                                            <th>не заполнено</th>
-                                        }
-                                        @if (student.Phone != null)
-                                        {
-                                            <th>@student.Phone</th>
-                                        }
-                                        else
-                                        {
-                                            <th>не заполнено</th>
-                                        }
-                                    </tr>
+                                {
+                                <tr>
+                                    <th>
+                                        @student.SurName @student.Name @student.Patronymic
+                                    </th>
+                                    <th>
+                                        @student.Group?.GroupName
+                                    </th>
+                                    <th>
+                                        @student.Phone
+                                    </th>                                  
+                                </tr>
                                 }
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <!-- Count rows -->
-                <div class="row" style="padding-left: 20px; padding-right: 20px;">
+                <div class="row" >
                     Всего выведено записей: @ViewData["All"]
                 </div>
 
-                <div class="row">
+                <div class="row" style="margin-top: 5px; margin-bottom: 5px">
                     <button type="button" class="btn btn-primary btn-sm">
-                        @Html.ActionLink("Добавить в БД", "AddStudentsToDataBase", "Student", null, new { style = "color:white" })
+                        @Html.ActionLink("Добавить студентов в БД", "AddStudentsToDataBase", "Student", null, new { style = "color:white" })
                     </button>
                 </div>
 

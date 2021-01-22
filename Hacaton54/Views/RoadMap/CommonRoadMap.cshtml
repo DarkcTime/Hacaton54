@@ -1,78 +1,18 @@
 ﻿
-<div class="row">
-    <!-- Left menu -->
-    <div class="col-3">
-        <div class="container leftmenu" style="margin-right: 10px; ">
-            <div class="row header-leftmenu align-items-center justify-content-center">
-                Дорожная карта
-            </div>
-            <div class="row item-leftmenu justify-content-center" style="margin-top:20px;">
-                Добавление
-            </div>
-            <div class="row item-leftmenu justify-content-center" style="margin-top:10px;margin-bottom:10px;">
-                <button type="button" class="btn btn-primary btn-sm">
-                    @Html.ActionLink("Добавить запись", "AddStudent", "Student", null, new { style = "color:white" })
-                </button>
-            </div>
-            <div class="row item-leftmenu justify-content-center" style="margin-top:10px;margin-bottom:10px;">
-                <button type="button" class="btn btn-primary btn-sm">
-                    @Html.ActionLink("Добавить/Редактировать из Excel", "ImportStudents", "Student", null, new { style = "color:white" })
-                </button>
-            </div>
-            <div class="row item-leftmenu justify-content-center" style="margin-top:20px;margin-bottom:10px;">
-                Экспорт
-            </div>
-            <div class="row item-leftmenu justify-content-center" style="margin-top:10px;margin-bottom:10px;">
-                <button type="button" class="btn btn-primary btn-sm">
-                    @Html.ActionLink("Экспорт из Excel", "ExportExcel", "RoadMap", null, new { style = "color:white" })
-                </button>
-            </div>
-        </div>
-        <div class="container" style="margin-top:30px">
-            <div class="row align-items-end justify-content-center">
-                <img src="~/resource/images/ks54_transparent.png" id="image_transparent" />
-            </div>
-        </div>
-    </div>
+<div class="container">
 
     <!-- List -->
-    <div class="col-9">
-
-        <div class="row" style="padding-left: 20px; padding-right: 20px;">
+        <div class="row">
             <!-- Filtering form -->
             <div class="col">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Login <span class="glyphicon glyphicon-log-in"></span></a>
-                    <div class="dropdown-menu">
-                        <form>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Группа</label>
-                                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                                        <!-- <option selected>Choose...</option> -->
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label for="formGroupExampleInput">Курс</label>
-                                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                                        <!-- <option selected>Choose...</option> -->
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="2">3</option>
-                                        <option value="2">4</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="formGroupExampleInput">Дата рождения</label>
-                                <input type="date" class="form-control">
-                            </div>
-                        </form>
-                    </div>
+                <div class="row justify-content-start" style="margin-top:10px;margin-bottom:10px;">
+                    <button type="button" class="btn btn-primary btn-sm">
+                        @Html.ActionLink("Экспорт в Excel", "ExportExcel", "RoadMap", null, new { style = "color:white" })
+                    </button>
                 </div>
             </div>
             <!-- Search form -->
-            <div class="col">
+            <div class="col justify-content-end">
                 <form method="post">
                     <div class="row">
                         <div class="col-9">
@@ -86,7 +26,7 @@
             </div>
         </div>
 
-        <div style="padding: 20px">
+        <div class="row justify-content-center">
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
                 <!-- Tables with students -->
                 <table class="table table-bordered table-striped mb-0">
@@ -105,33 +45,29 @@
                     <tbody>
                         @foreach (RoadMap roadMap in Model)
                         {
-                        <tr>
-                            <th>
-                                @roadMap.Group.Department.HeadOfDepartmentNavigation.Surname
-                            </th>
-                            <th>
-                                @roadMap.Group.Department.Name
-                            </th>
-                            <th>
-                                @roadMap.Group.GroupSpeciality.Description
-                            </th>
-                            <th>
-                                @roadMap.Group.GroupName
-                            </th>
-                            <th>
-                                @roadMap.Attestation.DisciplineEmployee.Discipline.Name
-                            </th>
-                            <th>
-                                @roadMap.Attestation.DisciplineEmployee.Employee.Surname
-                            </th>
-                            <th>
-                                @roadMap.Attestation.Month.Name
-                            </th>
-                            <th>
-                                <a asp-action="EditRoadMap" asp-route-id="@roadMap.Id">Edit</a>
-                            </th>
-
-                        </tr>
+                            <tr>
+                                <th>
+                                    @roadMap.Group?.Department?.HeadOfDepartmentNavigation?.Surname
+                                </th>
+                                <th>
+                                    @roadMap.Group?.Department?.Name
+                                </th>
+                                <th>
+                                    @roadMap.Group?.GroupSpeciality?.Description
+                                </th>
+                                <th>
+                                    @roadMap.Group?.GroupName
+                                </th>
+                                <th>
+                                    @roadMap.Attestation?.DisciplineEmployee?.Discipline?.Name
+                                </th>
+                                <th>
+                                    @roadMap.Attestation?.DisciplineEmployee?.Employee?.Surname
+                                </th>
+                                <th>
+                                    @roadMap.Attestation?.Month?.Name
+                                </th>
+                            </tr>
                         }
                     </tbody>
 
@@ -143,6 +79,5 @@
         <div class="row" style="padding-left: 20px; padding-right: 20px;">
             <!-- Всего выведено записей: ViewData["Count"]/ViewData["All"] -->
         </div>
-    </div>
 </div>
 

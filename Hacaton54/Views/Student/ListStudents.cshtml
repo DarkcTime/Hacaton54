@@ -24,11 +24,12 @@
             </div>
             <div class="row item-leftmenu justify-content-center" style="margin-top:10px;margin-bottom:10px;">
                 <button type="button" class="btn btn-primary btn-sm">
-                    @Html.ActionLink("Экспорт из Excel", "ExportExcel", "Student", null, new { style = "color:white" })
+                    @Html.ActionLink("Экспорт в Excel", "ExportExcel", "Student", null, new { style = "color:white" })
                 </button>
             </div>
         </div>
-        <div class="container" style="margin-top:30px">
+
+        <div class="container" style="margin-top:70px">
             <div class="row align-items-end justify-content-center">
                 <img src="~/resource/images/ks54_transparent.png" id="image_transparent" />
             </div>
@@ -39,42 +40,9 @@
     <div class="col-9">
 
         <div class="row" style="padding-left: 20px; padding-right: 20px;">
-            <!-- Filtering form -->
             <div class="col">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Параметры фильтрации 
-                    <span class="glyphicon glyphicon-log-in"></span>
-                    </a>
-
-                    <div class="dropdown-menu">
-                        <form>
-                            <div class="row">
-                                <div class="col">
-                                    <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Группа</label>
-                                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                                        <!-- <option selected>Choose...</option> -->
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <label for="formGroupExampleInput">Курс</label>
-                                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                                        <!-- <option selected>Choose...</option> -->
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="2">3</option>
-                                        <option value="2">4</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="formGroupExampleInput">Дата рождения</label>
-                                <input type="date" class="form-control">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+               
+            </div>            
             <!-- Search form -->
             <div class="col">
                 <form method="post">
@@ -88,6 +56,7 @@
                     </div>
                 </form>
             </div>
+           
         </div>
 
         <div style="padding: 20px">
@@ -99,7 +68,7 @@
                             <th scope="col">ФИО</th>
                             <th scope="col">Группа</th>
                             <th scope="col">Телефон</th>
-
+                            <th scope="col">Изменить</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -107,40 +76,16 @@
                         {
                             <tr>
                                 <th>
-                                    @if (@student.Name != null)
-                                    {
-                                        @student.Name
-                                    }
-
-                                    @if (@student.SurName != null)
-                                    {
-                                        @student.SurName
-                                    }
-
-                                    @if (@student.Patronymic != null)
-                                    {
-                                        @student.Patronymic
-                                    }
+                                    @student.SurName @student.Name @student.Patronymic
                                 </th>
-
-                                @if (student.GroupId != null)
-                                {
-                                    <th>@student.Group.GroupName</th>
-                                }
-                                else
-                                {
-                                    <th>не заполнено</th>
-                                }
-                                @if (student.Phone != null)
-                                {
-                                    <th>@student.Phone</th>
-                                }
-                                else
-                                {
-                                    <th>не заполнено</th>
-                                }
                                 <th>
-                                    <a asp-action="EditStudent" asp-route-id="@student.Id">Edit</a>
+                                    @student.Group?.GroupName
+                                </th>
+                                <th>
+                                    @student.Phone
+                                </th>
+                                <th>
+                                    <a asp-action="EditStudent" asp-route-id="@student.Id">Редактировать</a>
                                 </th>
 
                             </tr>

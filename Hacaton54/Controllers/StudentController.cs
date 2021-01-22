@@ -68,8 +68,16 @@ namespace Hacaton54.Controllers
             return File(excelHelper.ExportExcelStudent(Students),
                         "application/xlsx",
                         "student.xlsx");
+        }
 
-        }       
+        public IActionResult ExportExcelEmpty()
+        {
+            return File(excelHelper.ExportExcelStudent(new List<Student>()),
+                        "application/xlsx",
+                        "student.xlsx");
+        }
+
+
         public IActionResult ImportStudents()
         {
             return View(new List<Student>()); 
@@ -78,26 +86,40 @@ namespace Hacaton54.Controllers
         [HttpPost]
         public IActionResult ImportStudents(IFormFile uploadedFile)
         {
-            studentsFromExcel = excelHelper.ImportExcel(uploadedFile);
-            postData(0, studentsFromExcel.Count());
-            return View(studentsFromExcel); 
+            if(uploadedFile != null)
+            {
+                studentsFromExcel = excelHelper.ImportExcel(uploadedFile);
+                ViewData["Success"] = "";
+                postData(0, studentsFromExcel.Count());
+                return View(studentsFromExcel);
+            }
+            else
+            {
+                ViewData["Success"] = "Сперва выберите файл";
+                return View(new List<Student>());
+            }
+            
         }
 
         public IActionResult AddStudentsToDataBase()
         {
-            studentRepository.ImportStudentsFromExcel(studentsFromExcel); 
-            return RedirectToAction("ImportStudents");
+            try
+            {
+                studentRepository.ImportStudentsFromExcel(studentsFromExcel);
+                return RedirectToAction("ListStudents");
+            }
+            catch(Exception ex)
+            {               
+                ViewData["Exception"] = ex.Message;
+                return RedirectToAction("ImportStudents");
+
+            }            
         }
 
         private void postData(int count, int all)
         {
             ViewData["Count"] = count.ToString();
             ViewData["All"] = all.ToString();            
-        }
-
-        public IActionResult FilteringStudents()
-        {
-            return View();
         }
 
         public IActionResult AddStudent()
@@ -129,7 +151,6 @@ namespace Hacaton54.Controllers
             return View(student); 
         }
 
-        //TODO drenuv контроллер для страницы редактирования
         [HttpPost]
         public IActionResult EditStudent(Student student)
         {

@@ -15,8 +15,8 @@ namespace Hacaton54.Models.Extensions
 
         public ScoreView(AttestationStudent attestation)
         {
-            name = attestation.Student.Name + " " + attestation.Student.SurName + " " + attestation.Student.Patronymic;
-            group = attestation.Student.Group.GroupName;
+            name = attestation.Student.SurName + " " + attestation.Student.Name + " " + attestation.Student.Patronymic;
+            group = attestation.Student.Group?.GroupName;
             Discipline = attestation.Attestation.DisciplineEmployee.Discipline.Name;
             score = attestation.Score.Name;
             HolingDate = attestation?.HoldingDate;
