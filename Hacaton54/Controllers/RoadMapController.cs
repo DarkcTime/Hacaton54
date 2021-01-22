@@ -17,6 +17,8 @@ namespace Hacaton54.Controllers
     {
         private static List<RoadMap> roadMaps;
 
+        private static List<RoadMap> roadMapsExport;
+
         private ExcelHelper excelHelper = new ExcelHelper();       
 
         private GroupRepository groupRepository;
@@ -33,27 +35,31 @@ namespace Hacaton54.Controllers
 
         public IActionResult CommonRoadMap()
         {
-            roadMaps = roadMapRepository.GetRoadMaps(); 
+            roadMaps = roadMapRepository.GetRoadMaps();
+            roadMapsExport = roadMaps; 
             return View(roadMaps);
         }
 
         [HttpPost]
         public IActionResult CommonRoadMap(string search)
         {
-            if (string.IsNullOrWhiteSpace(search))
+            if (!string.IsNullOrWhiteSpace(search))
             {
-
+                roadMapsExport = roadMapRepository.GetSearchedRoadMaps(search);
+                return View(roadMapsExport);
             }
-            return View(RoadMapRepository.RoadMaps);
+            roadMapsExport = roadMaps;
+            return View(roadMaps);
         }
      
         public IActionResult ExportExcel()
         {
-            return File(excelHelper.ExportExcelRoad(roadMaps),
+            return File(excelHelper.ExportExcelRoad(roadMapsExport),
                         "application/xlsx",
                         "road.xlsx");
 
         }
+
 
         public IActionResult AddRoadMap()
         {
