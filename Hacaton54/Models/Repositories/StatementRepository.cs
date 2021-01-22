@@ -29,5 +29,22 @@ namespace Hacaton54.Models.Repositories
             return AttestationStudents;
         }
 
+        public List<AttestationStudent> GetSearchedAttestationStudents(string search)
+        {
+            AttestationStudents = context.AttestationStudents
+                .Include(p => p.Student)
+                .Include(p => p.Student.Group)
+                .Include(p => p.Attestation.DisciplineEmployee.Discipline)
+                .Include(p => p.Score)
+                .Where(i => i.Student.SurName.Contains(search) 
+                || i.Student.Name.Contains(search)
+                || i.Student.Patronymic.Contains(search)
+                || i.Student.Group.GroupName.Contains(search)
+                || i.Score.Name.Contains(search))
+                .ToList();
+
+            return AttestationStudents;
+        }
+
     }
 }

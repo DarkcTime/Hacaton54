@@ -15,6 +15,8 @@ namespace Hacaton54.Controllers
 
         private static List<AttestationStudent> students;
 
+        private static List<AttestationStudent> studentsExport; 
+
         private ExcelHelper excelHelper;
 
         private GroupRepository groupRepository;
@@ -32,25 +34,30 @@ namespace Hacaton54.Controllers
         public IActionResult CommonStatement()
         {
             students = statementRepository.GetAttestationStudents();
+            studentsExport = students; 
             return View(students);
+        }
+
+        [HttpPost]
+        public IActionResult CommonStatement(string search)
+        {
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                studentsExport = statementRepository.GetSearchedAttestationStudents(search);
+                return View(studentsExport);
+            }
+            studentsExport = students; 
+            return View(studentsExport); 
         }
 
         public IActionResult ExportExcel()
         {
-            return File(excelHelper.ExportExcelSCore(students),
+            return File(excelHelper.ExportExcelSCore(studentsExport),
                         "application/xlsx",
-                        "road.xlsx");
+                        "statement.xlsx");
 
         }
 
-        public IActionResult AddStatement()
-        {
-            return View();
-        }
-
-        public IActionResult FilteringStatement()
-        {
-            return View();
-        }
+       
     }
 }
