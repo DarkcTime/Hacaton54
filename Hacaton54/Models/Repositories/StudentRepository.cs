@@ -119,13 +119,10 @@ namespace Hacaton54.Models.Repositories
             context.SaveChanges(); 
         }
 
-        // TODO редактивароние данных о студенте
-        public bool EditStudent(Student student)
+        public void EditStudent(Student student)
         {
-            //про этот метод почитай, он есть только в ef core. Потом надо протестить его будет, он у меня помню работал через раз (((( один раз работает, один нет
-            //context.Students.Update(); 
-            
-            return true; 
+            context.Students.Update(student);
+            context.SaveChanges();
         }
 
 

@@ -147,6 +147,7 @@ namespace Hacaton54.Controllers
         
         public IActionResult EditStudent(int id)
         {
+            ViewData["AllGroup"] = GetGroup();
             Student student = studentRepository.GetStudent(id); 
             return View(student); 
         }
@@ -154,7 +155,10 @@ namespace Hacaton54.Controllers
         [HttpPost]
         public IActionResult EditStudent(Student student)
         {
-            return View();
+            ViewData["AllGroup"] = GetGroup();
+            studentRepository.EditStudent(student);
+            ViewData["Message"] = "Данные о студенте успешно сохранены";
+            return View(student);
         }
     }
 }
