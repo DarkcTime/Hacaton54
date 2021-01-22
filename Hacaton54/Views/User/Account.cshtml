@@ -1,51 +1,41 @@
-﻿<div class="container">
+﻿@model Hacaton54.Models.Extensions.AccountModel
+<div class="container">
     <div class="row justify-content-center">
         <h3>Профиль пользователя</h3>
-    </div>
-    <form>
+    </div>   
+    <form asp-action="Account" asp-controller="User" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col">
                 <div class="container">
                     <div class="row">
                         <label for="formGroupExampleInput">Имя</label>
-                        <input type="text" class="form-control" placeholder="Ирина">
+                        <input  type="text" asp-for="Name" class="form-control" placeholder="Ирина">
                     </div>
                     <div class="row">
                         <label for="formGroupExampleInput">Email</label>
-                        <input type="text" class="form-control" placeholder="irina09@gmali.com">
+                        <input type="text" asp-for="Email" class="form-control" placeholder="irina09@gmali.com">
                     </div>
                     <div class="row">
                         <label for="formGroupExampleInput">Логин</label>
-                        <input type="text" class="form-control" placeholder="IrinaV">
+                        <input type="text" asp-for="Login" class="form-control" placeholder="IrinaV">
                     </div>
                     <div class="row">
                         <label for="formGroupExampleInput">Старый пароль</label>
-                        <input type="password" class="form-control">
+                        <input type="text" asp-for="OldPassword" class="form-control">
                     </div>
                     <div class="row">
                         <label for="formGroupExampleInput">Новый пароль</label>
-                        <input type="password" class="form-control">
+                        <input type="text" asp-for="NewPassword" class="form-control">
                     </div>
                     <div class="row">
-                        <div class="col">
-                            <button type="button" class="btn btn-primary btn-sm">
-                                @Html.ActionLink("Параметры фильтрации", "FilteringStudent", "Student", null, new { style = "color:white" })
-                            </button>
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-primary btn-sm">
-                                @Html.ActionLink("Параметры фильтрации", "FilteringStudent", "Student", null, new { style = "color:white" })
-                            </button>
-                        </div>
+                        <p><b>@ViewData["Message"]</b></p>
                     </div>
+
+                    <input type="submit" class="btn btn-success" value="Сохранить изменения"/>
                 </div>
             </div>
             <div class="col">
-                <img src="~/resource/icons/ks54.png" width="300" height="300" />
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Example file input</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                </div>
+                <img src="~/resource/icons/ks54.png" width="400" height="300" />
             </div>
         </div>
     </form>

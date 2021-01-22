@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hacaton54.Models.Extensions;
-using Hacaton54.Models.ModelDB; 
+using Hacaton54.Models.DataModel;
+//package for Entity Framework
+using Microsoft.EntityFrameworkCore;
+
 
 
 namespace Hacaton54.Models.Repositories
@@ -17,53 +20,109 @@ namespace Hacaton54.Models.Repositories
             context = _context; 
         }
 
-        public List<Student> ListStudents; 
-
         //TODO получение студента по его id 
         public Student GetStudent(int id)
         {
-            return new Student();
+            return context.Students.Find(id);
         }
 
         // TODO drenuv или нужно использовать студент View? можно перегрузить или просто создать классы с разными именами в случае чего 
         public List<Student> GetStudents()
         {
-            ListStudents = this.context.Students.ToList();
-            return ListStudents;;
+            return this.context.Students.Include(p => p.Group).Include(p => p.Gender).ToList();
         }
 
 
         public List<Student> FoundStudents(string searchStr)
         {
-            List<Student> students; 
-            if(searchStr != null)
-                students = context.Students.Where(i => i.Name != null && i.Name.Contains(searchStr)
+            //TODO refactore code
+            List<Student> students = new List<Student>();
+            if (searchStr != null)
+                students = context.Students.Include(p => p.Group).Where(i => i.Name != null && i.Name.Contains(searchStr)
                                                || i.SurName != null && i.SurName.Contains(searchStr)
                                                || i.Patronymic != null && i.Patronymic.Contains(searchStr)
                                                || i.Group.GroupName != null && i.Group.GroupName.Contains(searchStr))
                                                 .ToList();
             else
-                students = context.Students.ToList();
+                students = GetStudents();
+            
+            return students;
 
-            //TODO Filters vlad 
-
-
-            return students;             
         }
       
-        // TODO добавление студента
         public bool AddStudent(Student student)
         {
-            return true; 
+            bool right = true;
+            if (String.IsNullOrWhiteSpace(student.Name))
+            {
+                right = false;
+            }
+
+            //if (!String.IsNullOrWhiteSpace(student.Inn) && student.Inn.Length > 20)
+            //{
+            //    right = false;
+            //}
+
+            if (!String.IsNullOrWhiteSpace(student.MedPolicy) && student.MedPolicy.Length > 20)
+            {
+                right = false;
+            }
+
+            if (!String.IsNullOrWhiteSpace(student.Snils) && student.Snils.Length > 20)
+            {
+                right = false;
+            }
+
+            if (!String.IsNullOrWhiteSpace(student.Phone) && student.Phone.Length > 20)
+            {
+                right = false;
+            }
+
+            if (!String.IsNullOrWhiteSpace(student.HousePhone) && student.HousePhone.Length > 20)
+            {
+                right = false;
+            }
+
+            if (right)
+            {
+                try
+                {
+                    context.Students.Add(student);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+            return false;
+
         }
 
-        // TODO редактивароние данных о студенте
-        public bool EditStudent(Student student)
+        public void ImportStudentsFromExcel(List<Student> students)
         {
-            //про этот метод почитай, он есть только в ef core. Потом надо протестить его будет, он у меня помню работал через раз (((( один раз работает, один нет
-            //context.Students.Update(); 
-            
-            return true; 
+            foreach (Student student in students)
+            {
+                Student findStudent = context.Students.Find(student.Id);
+                if(findStudent != null)
+                {
+                    context.Students.Update(findStudent);   
+                }
+                else
+                {
+                    student.Group = null;
+                    student.Gender = null;
+                    context.Students.Add(student); 
+                }
+            }
+            context.SaveChanges(); 
+        }
+
+        public void EditStudent(Student student)
+        {
+            context.Students.Update(student);
+            context.SaveChanges();
         }
 
 

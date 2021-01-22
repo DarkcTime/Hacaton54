@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-using Hacaton54.Models.ModelDB;
+using Hacaton54.Models.DataModel;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Hacaton54
