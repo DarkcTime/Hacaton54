@@ -2,8 +2,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <h3>Профиль пользователя</h3>
-    </div>
-    <form asp-action="EditUser" asp-controller="User" method="post" enctype="multipart/form-data">
+    </div>   
+    <form asp-action="Account" asp-controller="User" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col">
                 <div class="container">
@@ -28,21 +28,14 @@
                         <input type="text" asp-for="NewPassword" class="form-control">
                     </div>
                     <div class="row">
-                        <div class="col">
-                            <button type="button" class="btn btn-primary btn-sm">
-                                @Html.ActionLink("Параметры фильтрации", "FilteringStudent", "Student", null, new { style = "color:white" })
-                            </button>
-                        </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-primary btn-sm">
-                                @Html.ActionLink("Параметры фильтрации", "FilteringStudent", "Student", null, new { style = "color:white" })
-                            </button>
-                        </div>
+                        <p><b>@ViewData["Message"]</b></p>
                     </div>
+
+                    <input type="submit" class="btn btn-success" value="Сохранить изменения"/>
                 </div>
             </div>
             <div class="col">
-                <img src="~/resource/icons/ks54.png" width="300" height="300" />
+                <img src="~/resource/icons/ks54.png" width="400" height="300" />
             </div>
         </div>
     </form>

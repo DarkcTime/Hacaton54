@@ -22,9 +22,11 @@ namespace Hacaton54.Controllers
         public UserController(ks54AISContext _context)
         {
             userRepository = new UserRepository(_context); 
-        }    
+        }
 
-             
+
+        private static string loginAuthUser; 
+
         [HttpGet]
         public IActionResult Login()
         {
@@ -51,8 +53,16 @@ namespace Hacaton54.Controllers
                         return Redirect(returnUrl);
                     }
                 }
+                else
+                {
+                    ViewData["Message"] = "Неправильный логин или пароль";
+                }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
 
+            }
+            else
+            {
+                ViewData["Message"] = "Все поля должны быть заполнены";
             }
             return View(model);
 
@@ -77,16 +87,31 @@ namespace Hacaton54.Controllers
         public IActionResult Account()
         {
 
-            string login = HttpContext.User.Identity.Name; 
+            loginAuthUser = HttpContext.User.Identity.Name; 
 
-            return View(userRepository.GetAccountModel(login));
+            return View(userRepository.GetAccountModel(loginAuthUser));
         }
 
         [HttpPost]
         public IActionResult Account(AccountModel account)
         {
+            if(account.OldPassword != account.NewPassword)
+            {
+                ViewData["Message"] = "Пароли не совпадают";   
+            }
+            else
+            {
+                if (userRepository.EditAccountData(account))
+                {
+                    ViewData["Message"] = "Данные пользователя успешно сохранены";
+                }
+                else
+                {
+                    ViewData["Message"] = "Ошибка при сохранении данных пользователя";
+                }
+            }            
 
-            return View();
+            return View(userRepository.GetAccountModel(loginAuthUser));
         }
 
         public async Task<IActionResult> Logout()

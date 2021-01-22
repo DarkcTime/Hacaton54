@@ -56,17 +56,20 @@ namespace Hacaton54.Models.Repositories
 
         public bool EditAccountData(AccountModel accountModel)
         {
-            AuthorizedEmployee.Name = accountModel.Name;
-            AuthorizedEmployee.EMail = accountModel.Email;
-            AuthorizedUser.UserName = accountModel.Login;
+            var user = context.Users.Where(i => i.UserName == AuthorizedUser.UserName).FirstOrDefault();
 
-            if(AuthorizedUser.Password == accountModel.OldPassword)
+            var employee = context.Employees.Where(i => i.UserId == user.Id).FirstOrDefault();
+
+            employee.Name = accountModel.Name;
+            employee.EMail = accountModel.Email;
+            user.UserName = accountModel.Login;
+            if (!string.IsNullOrWhiteSpace(accountModel.NewPassword))
             {
-                AuthorizedUser.Password = accountModel.NewPassword;
-            }
+                user.Password = accountModel.NewPassword;
+            }            
 
-            context.Employees.Update(AuthorizedEmployee);
-            context.Users.Update(AuthorizedUser);
+            context.Employees.Update(employee);
+            context.Users.Update(user);
 
             try
             {
